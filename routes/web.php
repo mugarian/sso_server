@@ -31,7 +31,7 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/cpanel', function () {
+Route::get('/admin', function () {
     return redirect('/login')->with('admin', 'Login Untuk Admin');
 });
 

@@ -127,11 +127,15 @@
                     <hr>
                     <h5 class="color_main text-center">Perayaan</h5>
                     <hr>
-                    <div class="row justify-content-center">
+                    <div class="row row-cols-1 row-cols-md-4 row-cols-md-4 mb-5 justify-content-center">
                         @foreach ($events as $event)
-                            <div class="col-lg-3 my-3">
+                            @if ($event->role == 'admin')
+                                @continue
+                            @endif
+                            <div class="card-deck mr-1 my-3">
                                 <div class="card">
-                                    <a href="/celebrate/{{ $event->id }}">
+                                    <a href="/celebrate/{{ $event->id }}"
+                                        class="text-decoration-none text-dark text-center">
                                         @if ($event->avatar)
                                             <img src="{{ asset('storage/' . $event->avatar) }}" class="card-img-top"
                                                 alt="{{ $event->name }}">
@@ -139,22 +143,21 @@
                                             <img src="{{ asset('img/unknown.png') }}" class="card-img-top"
                                                 alt="{{ $event->name }}">
                                         @endif
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-0">{{ $event->name }}</h5>
+                                            <p class="mb-3 fs-1">
+                                                <small>
+                                                    {{ $event->role }} - {{ $event->major }}
+                                                </small>
+                                            </p>
+                                            <p class="card-text">
+                                                Selamat Ulang Tahun ke
+                                                {{ \Carbon\Carbon::parse($event->birthdate)->age }}
+                                            </p>
+                                        </div>
                                     </a>
-                                    <div class="card-body">
-                                        <h6 class="card-title">
-                                            <b>
-                                                {{ $event->name }}
-                                            </b>
-                                        </h6>
-                                        <small class="text-muted">
-                                            {{ $event->role }} - {{ $event->major }}
-                                        </small>
-                                        <p class="card-text fs-6">
-                                            Selamat Ulang Tahun ke
-                                            {{ \Carbon\Carbon::parse($event->birthdate)->age }}
-                                        </p>
-                                        <p class="card-text">
-                                        </p>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
                                     </div>
                                 </div>
                             </div>
@@ -263,28 +266,25 @@
                     </div>
                     <hr>
                     <h6><b>Berita Polsub</b></h6>
-                    <div class="row">
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-md-2 mb-5 justify-content-start">
                         @forelse ($beritas as $berita)
-                            <div class="col-lg-4 mb-5">
-                                <div class="card">
-                                    <a href="/news/{{ $berita->id }}">
+                            <div class="card-deck mr-1 my-3">
+                                <a href="/news/{{ $berita->id }}" class="text-dark text-decoration-none">
+                                    <div class="card">
                                         <img src="{{ asset('storage/' . $berita->cover) }}" class="card-img-top"
                                             alt="{{ $berita->title }}">
-                                    </a>
-                                    <div class="card-body">
-                                        <h6 class="card-title">
-                                            <b>
-                                                {{ $berita->title }}
-                                            </b>
-                                        </h6>
-                                        <p class="card-text">{!! Str::of($berita->description)->words(10, '...') !!}</p>
-                                        <p class="card-text">
-                                            <small class="text-muted">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-dark">{{ $berita->title }}
+                                            </h5>
+                                            <p class="card-text text-dark">{!! Str::of($berita->description)->words(10, '...') !!}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated
                                                 {{ \Carbon\Carbon::parse($berita->created_at)->diffForHumans() }}
                                             </small>
-                                        </p>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         @empty
                             <div class="text-center">
@@ -293,29 +293,25 @@
                         @endforelse
                     </div>
                     <h6><b>Rekomendasi Berita</b></h6>
-                    <div class="row">
+                    <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 mb-5 justify-content-start">
                         @foreach ($all_news as $news)
-                            <div class="col-lg-4 mb-3">
-                                <div class="card">
-                                    <a href="{{ $news->url ?? '' }}">
+                            <div class="card-deck mr-1 my-3">
+                                <a href="{{ $news->url ?? '/' }}" class="text-dark text-decoration-none">
+                                    <div class="card">
                                         <img src="{{ $news->urlToImage ?? asset('img/news.jpg') }}" class="card-img-top"
                                             alt="{{ $news->title }}">
-                                    </a>
-                                    <div class="card-body">
-                                        <h6 class="card-title">
-                                            <b>
-                                                {{ $news->title }}
-                                            </b>
-                                        </h6>
-                                        <p class="card-text">{{ $news->description }}</p>
-                                        <p class="card-text">
-                                            <small class="text-muted">
-                                                By {{ $news->author ?? 'Unknown' }} -
+                                        <div class="card-body">
+                                            <h5 class="card-title text-dark">{{ $news->title }}
+                                            </h5>
+                                            <p class="card-text text-dark">{!! Str::of($news->description)->words(10, '...') !!}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">By {{ $news->author ?? 'Unknown' }} -
                                                 {{ \Carbon\Carbon::parse($news->publishedAt)->diffForHumans() }}
                                             </small>
-                                        </p>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         @endforeach
                     </div>

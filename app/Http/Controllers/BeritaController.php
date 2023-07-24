@@ -56,7 +56,7 @@ class BeritaController extends Controller
             'title' => 'required',
             'avatar' => 'required|image|mimes:jpg,jpeg,png|max:8000',
             'description' => 'required',
-            'attachment' => 'required|file|max:8000',
+            'attachment' => 'nullable|file|max:8000',
         ]);
 
         if ($request->file('avatar')) {
@@ -68,6 +68,8 @@ class BeritaController extends Controller
         if ($request->file('attachment')) {
             $validatedData['attachment'] = $request->file('attachment')->store('news-files');
         }
+
+        $validatedData['user_id'] = auth()->user()->id;
 
         Berita::create($validatedData);
         return redirect('/dashboard/news')->with('success', 'Tambah Data Berita Berhasil');
@@ -127,9 +129,9 @@ class BeritaController extends Controller
         $berita = Berita::find($id);
         $validatedData = $request->validate([
             'title' => 'required',
-            'avatar' => 'required|image|mimes:jpg,jpeg,png|max:8000',
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:8000',
             'description' => 'required',
-            'attachment' => 'required|file|max:8000',
+            'attachment' => 'nullable|file|max:8000',
         ]);
 
         if ($request->file('avatar')) {

@@ -66,7 +66,7 @@
                         <label for="attachment" class="col-form-label">Ganti Attachment:</label>
                         <input type="hidden" name="oldAttachment" value="{{ $berita->attachment }}">
                         <input type="file" class="form-control-file @error('attachment') is-invalid @enderror"
-                            id="attachment" name="attachment" value="{{ old('attachment') }}" required>
+                            id="attachment" name="attachment" value="{{ old('attachment') }}">
                         @error('attachment')
                             <div class="invalid-feedback">
                                 {{ $message }}

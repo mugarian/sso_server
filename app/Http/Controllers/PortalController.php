@@ -32,7 +32,7 @@ class PortalController extends Controller
         $page = null;
 
         $all_news = $newsapi->getTopHeadlines($query, $sources, $country, $category, $page_size, $page);
-        $tema = TemaPortal::where('user_id', 1)->get()->first();
+        $tema = TemaPortal::get()->first();
         $events = User::all();
         $agendas = Agenda::all();
         $clients = Client::all();
@@ -92,7 +92,7 @@ class PortalController extends Controller
 
     public function faq()
     {
-        $tema = TemaPortal::where('user_id', 1)->get()->first();
+        $tema = TemaPortal::get()->first();
         $events = User::all();
         $agendas = Agenda::all();
 
@@ -107,7 +107,7 @@ class PortalController extends Controller
     public function profile()
     {
         $user = User::find(auth()->user()->id);
-        $tema = TemaPortal::where('user_id', 1)->get()->first();
+        $tema = TemaPortal::get()->first();
         $events = User::all();
         $agendas = Agenda::all();
 

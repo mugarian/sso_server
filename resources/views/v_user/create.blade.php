@@ -42,6 +42,7 @@
                             <option value="dosen" @selected(old('role') == 'dosen')>Dosen</option>
                             <option value="mahasiswa" @selected(old('role') == 'mahasiswa')>Mahasiswa</option>
                             <option value="staff" @selected(old('role') == 'staf')>Staf</option>
+                            <option value="guest" @selected(old('role') == 'guest')>Tamu</option>
                         </select>
                         @error('role')
                             <div class="invalid-feedback">

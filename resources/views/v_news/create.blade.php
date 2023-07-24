@@ -57,7 +57,7 @@
                     <div class="mb-2">
                         <label for="attachment" class="col-form-label">Attachment:</label>
                         <input type="file" class="form-control-file @error('attachment') is-invalid @enderror"
-                            id="attachment" name="attachment" value="{{ old('attachment') }}" required>
+                            id="attachment" name="attachment" value="{{ old('attachment') }}">
                         @error('attachment')
                             <div class="invalid-feedback">
                                 {{ $message }}

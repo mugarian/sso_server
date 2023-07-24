@@ -12,11 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('celebrates', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('receiver_id');
-            $table->foreign('receiver_id')->references('id')->on('users');
-            $table->unsignedBigInteger('sender_id');
-            $table->foreign('sender_id')->references('id')->on('users');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('receiver_id')->references('id')->on('users');
+            $table->foreignUuid('sender_id')->references('id')->on('users');
             $table->text('message');
             $table->text('reply')->nullable();
             $table->timestamps();

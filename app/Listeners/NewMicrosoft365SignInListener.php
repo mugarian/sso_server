@@ -22,7 +22,7 @@ class NewMicrosoft365SignInListener
             'no_hp' => $event->token['info']['mobilePhone'],
             'address' => 'subang',
             'major' => 'mi',
-            'role' => 'mahasiswa',
+            'role' => 'guest',
             'status' => 1,
             'isMicrosoftAccount' => 1,
             'username' => $username[0],

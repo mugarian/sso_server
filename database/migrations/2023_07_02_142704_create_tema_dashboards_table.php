@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tema_dashboards', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id')->unique()->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->references('id')->on('users');
 
             $table->string('bg_sidebar')->default('#4e73df');
             $table->string('color_sidebar')->default('#ffffff');

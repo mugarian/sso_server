@@ -63,6 +63,8 @@ class AgendaController extends Controller
             'textColor' => 'required',
         ]);
 
+        $validatedData['user_id'] = auth()->user()->id;
+
         Agenda::create($validatedData);
         return redirect('/dashboard/agenda')->with('success', 'Tambah Data Agenda Berhasil');
     }

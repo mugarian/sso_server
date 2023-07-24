@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('news', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id')->unique()->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->references('id')->on('users');
             $table->string('query')->nullable();
             $table->string('country')->default('id')->nullable();
             $table->string('category')->default('technology')->nullable();

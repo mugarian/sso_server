@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->date('birthdate');
             $table->string('no_induk')->unique();
             $table->string('no_hp')->unique()->nullable();
             $table->text('address')->nullable();
-            $table->enum('major', ['mi', 'ai', 'tppm', 'kesehatan', 'kepegawaian']);
-            $table->enum('role', ['admin', 'dosen', 'mahasiswa', 'staff']);
+            $table->enum('major', ['mi', 'ai', 'tppm', 'kesehatan', 'kepegawaian', 'guest'])->default('guest');
+            $table->enum('role', ['admin', 'dosen', 'mahasiswa', 'staff', 'guest'])->default('guest');
             $table->string('avatar')->nullable();
             $table->boolean('status')->default(1);
             $table->boolean('isRegistered')->default(0);

@@ -5,9 +5,10 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\News;
 use App\Models\User;
+use Ramsey\Uuid\Uuid;
 use App\Models\Agenda;
-use App\Models\TemaDashboard;
 use App\Models\TemaPortal;
+use App\Models\TemaDashboard;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,7 +19,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $admin = (string) Uuid::uuid4();
         User::create([
+            'id' => $admin,
             'name' => 'admin',
             'birthdate' => '2000-02-07',
             'no_induk' => '0',
@@ -33,6 +36,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
+            'id' => (string) Uuid::uuid4(),
             'name' => 'galih',
             'birthdate' => '2000-01-01',
             'no_induk' => '2983912',
@@ -149,6 +153,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         News::create([
+            'id' => (string) Uuid::uuid4(),
+            'user_id' => $admin,
             'query' => null,
             'country' => 'id',
             'category' => 'technology',
@@ -156,7 +162,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         TemaPortal::create([
-            'user_id' => 1,
+            'id' => (string) Uuid::uuid4(),
+            'user_id' => $admin,
             'cover_main' => NULL,
             'bg_main' => '#4e73df',
             'layout_main' => '#ffffff',
@@ -166,6 +173,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         TemaDashboard::create([
+            'id' => (string) Uuid::uuid4(),
+            'user_Id' => $admin,
             'bg_sidebar' => '#4e73df',
             'color_sidebar' => '#ffffcc',
             'bg_sidebar_active' => 'black',
@@ -182,7 +191,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Agenda::create([
-            'user_id' => 1,
+            'id' => (string) Uuid::uuid4(),
+            'user_id' => $admin,
             'start' => '2023-05-22T10:00:00',
             'end' => '2023-05-23T11:00:00',
             'title' => 'Hari Normal',

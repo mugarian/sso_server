@@ -36,12 +36,14 @@
                     <label for="deskripsi" class="col-form-label">Deskripsi:</label>
                     <div>{!! $berita->description !!}</div>
                 </div>
-                <div class="mb-5">
-                    <label for="name" class="col-form-label">Lampiran:</label> <br>
-                    <a href="{{ asset('/storage/' . $berita->attachment) }}" class="btn btn-primary" download>
-                        Download
-                    </a>
-                </div>
+                @if ($berita->attachment)
+                    <div class="mb-5">
+                        <label for="name" class="col-form-label">Lampiran:</label> <br>
+                        <a href="{{ asset('/storage/' . $berita->attachment) }}" class="btn btn-primary" download>
+                            Download
+                        </a>
+                    </div>
+                @endif
 
                 <div class="my-3 d-flex">
                     <a href="{{ route('news.edit', ['news' => $berita->id]) }}" class="btn btn-warning mr-3">Ubah</a>

@@ -104,22 +104,6 @@
                             </div>
                         @enderror
                     </div>
-                    <div class="mb-2 form-group">
-                        <label for="major">Pilih Jurusan</label>
-                        <select class="form-control @error('major') is-invalid @enderror" id="major" name="major">
-                            <option value="">Pilih Jurusan</option>
-                            <option value="mi" @selected(old('major', $user->major) == 'mi')>Manajemen Informatika</option>
-                            <option value="ai" @selected(old('major', $user->major) == 'ai')>Agroindustri</option>
-                            <option value="tppm" @selected(old('major', $user->major) == 'tppm')>TPPM</option>
-                            <option value="kesehatan" @selected(old('major', $user->major) == 'kesehatan')>Kesehatan</option>
-                            <option value="kepegawaian" @selected(old('major', $user->major) == 'kepegawaian')>Kepegawaian</option>
-                        </select>
-                        @error('major')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
                     <div class="mb-2">
                         <label for="username" class="col-form-label">Username:</label>
                         <input type="text" class="form-control @error('username') is-invalid @enderror" id="username"

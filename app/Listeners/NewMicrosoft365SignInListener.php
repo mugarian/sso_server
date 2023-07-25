@@ -10,24 +10,26 @@ class NewMicrosoft365SignInListener
 {
     public function handle($event)
     {
-        $username = explode('@', $event->token['info']['mail']);
-        $password = explode('.', $username[0]);
-        $user  = User::firstOrCreate([
-            'email' => $event->token['info']['mail'],
-        ], [
-            'name'     => $event->token['info']['displayName'],
-            'email'    => $event->token['info']['mail'] ?? $event->token['info']['userPrincipalName'],
-            'birthdate' => '2000-01-01',
-            'no_induk' => rand(),
-            'no_hp' => $event->token['info']['mobilePhone'],
-            'address' => 'subang',
-            'major' => 'mi',
-            'role' => 'guest',
-            'status' => 1,
-            'isMicrosoftAccount' => 1,
-            'username' => $username[0],
-            'password' => '',
-        ]);
+        $emailArray = explode('@', $event->token['info']['mail']);
+
+        $user = User::where('email', $emailArray)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name'     => $event->token['info']['displayName'],
+                'email'    => $event->token['info']['mail'] ?? $event->token['info']['userPrincipalName'],
+                'birthdate' => '2000-01-01',
+                'no_induk' => rand(),
+                'no_hp' => $event->token['info']['mobilePhone'],
+                'address' => 'subang',
+                'major' => 'guest',
+                'role' => 'guest',
+                'status' => 1,
+                'isMicrosoftAccount' => 1,
+                'username' => $emailArray[0],
+                'password' => $emailArray[0],
+            ]);
+        }
 
         (new MsGraph())->storeToken(
             $event->token['accessToken'],

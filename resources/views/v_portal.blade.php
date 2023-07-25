@@ -23,11 +23,21 @@
                     </div>
                 @endif
 
+                @if (auth()->user()->role == 'guest')
+                    <div class="alert alert-primary" role="alert">
+                        Anda Terdaftar Sebagai Tamu. Silahkan Ajukan ke bagian UPT TIK untuk menjadikan akun anda sebagai
+                        bagian dari Civitas Akademika Politeknik Negeri Subang
+                    </div>
+                @endif
+
                 <hr />
 
                 {{-- DAFTAR CLIENT --}}
                 <div class="row justify-content-center mb-4">
                     @foreach ($clients as $client)
+                        @if (auth()->user()->role == 'guest')
+                            @continue
+                        @endif
                         <?php
                         $mahasiswa = $client->mahasiswa == 1 ? 'mahasiswa' : '';
                         $dosen = $client->dosen == 1 ? 'dosen' : '';
@@ -48,7 +58,7 @@
                             </div>
                         @endif
                     @endforeach
-                    @if (auth()->user()->isMicrosoftAccount)
+                    @if (auth()->user()->isMicrosoftAccount || auth()->user()->role != 'guest')
                         <div class="col-lg-3 col-md-6 col-sm-12 border rounded text-center pt-3 bg-light">
                             <a href="https://www.microsoft365.com/" target="_blank" class="text-decoration-none">
                                 <img src="{{ asset('img') }}/office365.png" alt="client-avatar" height="100"

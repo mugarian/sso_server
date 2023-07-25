@@ -58,7 +58,7 @@
                             </div>
                         @endif
                     @endforeach
-                    @if (auth()->user()->isMicrosoftAccount || auth()->user()->role != 'guest')
+                    @if (auth()->user()->isMicrosoftAccount && auth()->user()->role != 'guest')
                         <div class="col-lg-3 col-md-6 col-sm-12 border rounded text-center pt-3 bg-light">
                             <a href="https://www.microsoft365.com/" target="_blank" class="text-decoration-none">
                                 <img src="{{ asset('img') }}/office365.png" alt="client-avatar" height="100"

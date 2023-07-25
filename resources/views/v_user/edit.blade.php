@@ -58,6 +58,7 @@
                     <div class="mb-2">
                         <label for="role">Role User:</label>
                         <select class="form-control" id="role" name="role">
+                            <option value="">Pilih Role</option>
                             <option value="dosen" @selected(old('role', $user->role) == 'dosen')>Dosen</option>
                             <option value="mahasiswa" @selected(old('role', $user->role) == 'mahasiswa')>Mahasiswa</option>
                             <option value="staff" @selected(old('role', $user->role) == 'staf')>Staf</option>

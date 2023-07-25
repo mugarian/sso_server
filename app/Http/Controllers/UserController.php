@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Models\TemaDashboard;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class UserController extends Controller
@@ -177,5 +179,49 @@ class UserController extends Controller
         }
         User::destroy($user->id);
         return redirect('/dashboard/user')->with('success', 'Data Dosen telah dihapus');
+    }
+
+    public function import(Request $request)
+    {
+        $validatedData = $request->validate([
+            'import' => 'required|file|mimes:xls,xlsx|max:8000'
+        ]);
+
+        $excelFile = $request->file('import');
+
+        try {
+            $spreadsheet = IOFactory::load($excelFile->getRealPath());
+            $sheet        = $spreadsheet->getSheet(0);
+            $row_limit    = $sheet->getHighestDataRow();
+            $column_limit = $sheet->getHighestDataColumn();
+            $row_range    = range(2, $row_limit);
+            $column_range = range('A', $column_limit);
+            $startcount = 2;
+
+            // $data = array();
+
+            foreach ($row_range as $row) {
+
+                $birthdate = $sheet->getCell('B' . $row)->getValue() . '-' . $sheet->getCell('C' . $row)->getValue() . '-' . $sheet->getCell('D' . $row)->getValue();
+                $password = Hash::make($sheet->getCell('E' . $row)->getValue());
+
+                $data_mentah = [
+                    'name' => $sheet->getCell('A' . $row)->getValue(),
+                    'birthdate' => $birthdate,
+                    'no_induk' => $sheet->getCell('E' . $row)->getValue(),
+                    'no_hp' => $sheet->getCell('F' . $row)->getValue(),
+                    'address' => $sheet->getCell('G' . $row)->getValue(),
+                    'major' => $sheet->getCell('H' . $row)->getValue(),
+                    'role' => $sheet->getCell('I' . $row)->getCalculatedValue(),
+                    'username' => $sheet->getCell('J' . $row)->getValue(),
+                    'email' => $sheet->getCell('K' . $row)->getValue(),
+                    'password' => $password,
+                ];
+                User::create($data_mentah);
+            }
+        } catch (\Exception $e) {
+            return redirect('/dashboard/user')->with('fail', 'Import Data user Gagal');
+        }
+        return redirect('/dashboard/user')->with('success', 'Import Data user Berhasil');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Agenda;
 use App\Models\TemaPortal;
 use Illuminate\Http\Request;
 use App\Models\TemaDashboard;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class AgendaController extends Controller
 {
@@ -138,5 +139,48 @@ class AgendaController extends Controller
     {
         Agenda::destroy($agenda->id);
         return redirect('/dashboard/agenda')->with('success', 'Data Agenda Berhasil Dihapus');
+    }
+
+    public function import(Request $request)
+    {
+        $validatedData = $request->validate([
+            'import' => 'required|file|mimes:xls,xlsx|max:8000'
+        ]);
+
+        $excelFile = $request->file('import');
+
+        try {
+            $spreadsheet = IOFactory::load($excelFile->getRealPath());
+            $sheet        = $spreadsheet->getSheet(0);
+            $row_limit    = $sheet->getHighestDataRow();
+            $column_limit = $sheet->getHighestDataColumn();
+            $row_range    = range(2, $row_limit);
+            $column_range = range('A', $column_limit);
+            $startcount = 2;
+
+            // $data = array();
+
+            foreach ($row_range as $row) {
+
+                $start = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($sheet->getCell('J' . $row)->getCalculatedValue() + $sheet->getCell('K' . $row)->getCalculatedValue());
+                $end = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($sheet->getCell('R' . $row)->getCalculatedValue() + $sheet->getCell('S' . $row)->getCalculatedValue());
+
+                $data_mentah = [
+                    'user_id' => auth()->user()->id,
+                    'title' => $sheet->getCell('A' . $row)->getValue(),
+                    'location' => $sheet->getCell('B' . $row)->getValue(),
+                    'description' => $sheet->getCell('C' . $row)->getValue(),
+                    'start' => gmdate("Y-m-d H:i:s", $start),
+                    'end' => gmdate("Y-m-d H:i:s", $end),
+                    'backgroundColor' => $sheet->getCell('T' . $row)->getValue(),
+                    'borderColor' => $sheet->getCell('U' . $row)->getValue(),
+                    'textColor' => $sheet->getCell('V' . $row)->getValue(),
+                ];
+                Agenda::create($data_mentah);
+            }
+        } catch (\Exception $e) {
+            return redirect('/dashboard/agenda')->with('fail', 'Import Data agenda Gagal');
+        }
+        return redirect('/dashboard/agenda')->with('success', 'Import Data agenda Berhasil');
     }
 }

@@ -36,7 +36,7 @@
                         <label for="start" class="col-form-label">Tanggal Mulai:</label>
                         <input type="datetime-local" class="form-control @error('start') is-invalid @enderror"
                             id="start" name="start" value="{{ old('start', $agenda->start) }}" required
-                            onchange="tanggal()" min="{{ date('Y-m-d') . 'T' . date('H:i') }}">
+                            onchange="tanggal()">
                         @error('start')
                             <div class="invalid-feedback">
                                 {{ $message }}

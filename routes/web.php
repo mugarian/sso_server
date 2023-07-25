@@ -78,6 +78,9 @@ Route::middleware(['auth', 'profil'])->group(function () {
 
     Route::get('/dashboard/temadashboard', [TemaDashboardController::class, 'index'])->name('temadashboard.index');
     Route::post('/dashboard/temadashboard', [TemaDashboardController::class, 'store'])->name('temadashboard.store');
+
+    Route::post('/import/user', [UserController::class, 'import'])->name('importUser');
+    Route::post('/import/agenda', [AgendaController::class, 'import'])->name('importAgenda');
 });
 
 Route::get('/profile', [PortalController::class, 'profile'])->name('portal.profile')->middleware('auth');

@@ -10,6 +10,14 @@
             </button>
         </div>
     @endif
+    @if (session()->has('fail'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('fail') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -21,6 +29,27 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Import Data</h6>
+                <a href="{{ asset('format/format-agenda.xlsx') }}" download="FormatImportAgenda"
+                    class="btn btn-sm btn-outline-primary">Download Format Import File</a>
+            </div>
+            <hr>
+            <form action="{{ route('importAgenda') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <fieldset>
+                    <legend><small>Form Import File:</small></legend>
+                    <input class="form-control-file my-2 @error('import') is-invalid @enderror" type="file"
+                        id="import" accept=".xls, .xlsx" required name="import">
+                    @error('import')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <button type="submit" class="btn btn-primary">Import</button>
+                </fieldset>
+            </form>
+            <hr>
             <div id='calendar'></div>
         </div>
     </div>

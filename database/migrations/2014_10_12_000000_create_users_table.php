@@ -26,7 +26,7 @@ return new class extends Migration
             $table->boolean('isMicrosoftAccount')->default(0);
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

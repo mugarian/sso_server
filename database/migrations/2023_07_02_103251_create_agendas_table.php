@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('location');
             $table->string('description');
-            $table->string('backgroundColor');
-            $table->string('borderColor');
-            $table->string('textColor');
+            $table->string('backgroundColor')->default('#0000ff');
+            $table->string('borderColor')->default('#ffffff');
+            $table->string('textColor')->default('#000000');
             $table->timestamps();
         });
     }

@@ -88,7 +88,7 @@
             <div class="p-5">
                 <div class="text-center">
                     <h1 class="h4 color_main mb-4">
-                        Selamat Datang di Haha <br> Politeknik Negeri Subang!
+                        Selamat Datang di Portal <br> Politeknik Negeri Subang!
                     </h1>
                     @if (session()->has('fail'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">

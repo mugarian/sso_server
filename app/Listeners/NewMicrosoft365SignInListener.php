@@ -29,10 +29,6 @@ class NewMicrosoft365SignInListener
                 'username' => $emailArray[0],
                 'password' => $emailArray[0],
             ]);
-        } else {
-            $user = User::find($user->id)->update([
-                'email'    => $event->token['info']['mail'] ?? $event->token['info']['userPrincipalName']
-            ]);
         }
 
         (new MsGraph())->storeToken(

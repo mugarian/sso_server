@@ -12,7 +12,7 @@ class NewMicrosoft365SignInListener
     {
         $emailArray = explode('@', $event->token['info']['mail']);
 
-        $user = User::where('email', $emailArray)->first();
+        $user = User::where('email', $event->token['info']['mail'])->first();
 
         if (!$user) {
             $user = User::create([

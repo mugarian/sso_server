@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('logo')->nullable();
             $table->text('login')->nullable();
-            $table->json('role')->nullable();
+            $table->boolean('dosen')->default(0);
+            $table->boolean('mahasiswa')->default(0);
+            $table->boolean('staff')->default(0);
             $table->string('secret', 100)->nullable();
             $table->string('provider')->nullable();
             $table->text('redirect');

@@ -66,7 +66,17 @@
                                 </td>
                                 <td class="text-wrap align-middle">{{ $client->name }}</td>
                                 <td class="text-wrap align-middle">{{ $client->login }}</td>
-                                <td class="text-wrap align-middle">{{ implode(', ', $client->role) }}</td>
+                                <td class="text-wrap align-middle">
+                                    @if ($client->dosen)
+                                        Dosen
+                                    @endif
+                                    @if ($client->mahasiswa)
+                                        Mahasiswa
+                                    @endif
+                                    @if ($client->staff)
+                                        Staff
+                                    @endif
+                                </td>
                                 <td class="align-middle">
                                     <div class="d-flex justify-content-around">
                                         <a class="btn btn-success btn-sm px-2"

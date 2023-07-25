@@ -28,7 +28,12 @@
                 {{-- DAFTAR CLIENT --}}
                 <div class="row justify-content-center mb-4">
                     @foreach ($clients as $client)
-                        @if (in_array(auth()->user()->role, $client->role) || auth()->user()->role == 'admin')
+                        <?php
+                        $mahasiswa = $client->mahasiswa == 1 ? 'mahasiswa' : '';
+                        $dosen = $client->dosen == 1 ? 'dosen' : '';
+                        $staff = $client->staff == 1 ? 'staff' : '';
+                        ?>
+                        @if (auth()->user()->role == $mahasiswa || auth()->user()->role == $dosen || auth()->user()->role == $staff)
                             <div class="col-lg-3 col-md-6 col-sm-12 border text-center pt-3 bg-light">
                                 <a href="{{ $client->login }}" class="text-decoration-none" target="_blank">
                                     @if ($client->logo)

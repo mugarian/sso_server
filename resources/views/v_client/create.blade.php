@@ -77,24 +77,42 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="role" class="col-form-label">Role:</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="dosen" id="dosen" name="role[]">
-                            <label class="form-check-label" for="dosen">
-                                Dosen
-                            </label>
+                        <label for="dosen" class="col-form-label">Bisa Diakses Dosen:</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="dosen" id="0" value="0"
+                                @checked(old('dosen') == 0)>
+                            <label class="form-check-label" for="0">Tidak</label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="mahasiswa" id="mahasiswa" name="role[]">
-                            <label class="form-check-label" for="mahasiswa">
-                                Mahasiswa
-                            </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="dosen" id="1" value="1"
+                                @checked(old('dosen') == 1)>
+                            <label class="form-check-label" for="1">Ya</label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="staff" id="staff" name="role[]">
-                            <label class="form-check-label" for="staff">
-                                Staff
-                            </label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mahasiswa" class="col-form-label">Bisa Diakses Mahasiswa:</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="mahasiswa" id="0" value="0"
+                                @checked(old('mahasiswa') == 0)>
+                            <label class="form-check-label" for="0">Tidak</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="mahasiswa" id="1"
+                                value="1" @checked(old('mahasiswa') == 1)>
+                            <label class="form-check-label" for="1">Ya</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="staff" class="col-form-label">Bisa Diakses Staff:</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="staff" id="0" value="0"
+                                @checked(old('staff') == 0)>
+                            <label class="form-check-label" for="0">Tidak</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="staff" id="1" value="1"
+                                @checked(old('staff') == 1)>
+                            <label class="form-check-label" for="1">Ya</label>
                         </div>
                     </div>
                 </div>

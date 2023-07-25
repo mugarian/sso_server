@@ -37,7 +37,17 @@
                 </div>
                 <div class="mb-3">
                     <label for="name" class="col-form-label">Role:</label><br>
-                    <b>{{ implode(', ', $client->role) }}</b>
+                    <b>
+                        @if ($client->dosen)
+                            Dosen
+                        @endif
+                        @if ($client->mahasiswa)
+                            Mahasiswa
+                        @endif
+                        @if ($client->staff)
+                            Staff
+                        @endif
+                    </b>
                 </div>
                 <div class="mb-3">
                     <label for="redirect" class="col-form-label">Login Link:</label><br>

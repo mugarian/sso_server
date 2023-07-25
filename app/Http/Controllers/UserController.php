@@ -116,6 +116,7 @@ class UserController extends Controller
             'role' => 'nullable',
             'status' => 'nullable',
             'address' => 'required',
+            'major' => 'required',
             'name' => 'required|max:255',
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:8000'
         ];

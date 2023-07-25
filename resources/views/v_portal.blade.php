@@ -23,14 +23,14 @@
                     </div>
                 @endif
 
+                <hr />
+
                 @if (auth()->user()->role == 'guest')
-                    <div class="alert alert-primary" role="alert">
+                    <div class="alert alert-warning text-center" role="alert">
                         Anda Terdaftar Sebagai Tamu. Silahkan Ajukan ke bagian UPT TIK untuk menjadikan akun anda sebagai
                         bagian dari Civitas Akademika Politeknik Negeri Subang
                     </div>
                 @endif
-
-                <hr />
 
                 {{-- DAFTAR CLIENT --}}
                 <div class="row justify-content-center mb-4">

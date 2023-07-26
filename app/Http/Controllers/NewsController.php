@@ -73,20 +73,25 @@ class NewsController extends Controller
             'page_size' => 'required',
         ]);
 
-        DB::table('news')->upsert(
-            [
+        $news = News::where('user_id', auth()->user()->id)->first();
+
+        if ($news) {
+            $news->update([
+                'query' => $validatedData['query'],
+                'country' => $validatedData['country'],
+                'category' => $validatedData['category'],
+                'page_size' => $validatedData['page_size'],
+            ]);
+        } else {
+            News::create([
                 'user_id' => auth()->user()->id,
                 'query' => $validatedData['query'],
                 'country' => $validatedData['country'],
                 'category' => $validatedData['category'],
                 'page_size' => $validatedData['page_size'],
-            ],
-            ['user_id'],
-            [
-                'query', 'country', 'category', 'page_size'
-            ]
-        );
+            ]);
+        }
 
-        return redirect('/portal')->with('success', 'Update Berita berhasil');
+        return redirect('/portal')->with('success', 'Update Rekomendasi Berita berhasil');
     }
 }

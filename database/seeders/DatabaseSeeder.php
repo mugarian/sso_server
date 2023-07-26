@@ -156,9 +156,9 @@ class DatabaseSeeder extends Seeder
             'id' => (string) Uuid::uuid4(),
             'user_id' => $admin,
             'query' => null,
-            'country' => 'id',
+            'country' => 'us',
             'category' => 'technology',
-            'page_size' => 20,
+            'page_size' => 3,
         ]);
 
         TemaPortal::create([

@@ -144,38 +144,37 @@
                     <hr>
                     <div class="row row-cols-1 row-cols-md-4 row-cols-md-4 mb-5 justify-content-center">
                         @foreach ($events as $event)
-                            @if ($event->role == 'admin' || $event->birthdate != date('Y-m-d') || $event->no_induk != '10107039')
-                                @continue
-                            @endif
-                            <div class="card-deck mr-1 my-3">
-                                <div class="card">
-                                    <a href="/celebrate/{{ $event->id }}"
-                                        class="text-decoration-none text-dark text-center">
-                                        @if ($event->avatar)
-                                            <img src="{{ asset('storage/' . $event->avatar) }}" class="card-img-top"
-                                                alt="{{ $event->name }}">
-                                        @else
-                                            <img src="{{ asset('img/unknown.png') }}" class="card-img-top"
-                                                alt="{{ $event->name }}">
-                                        @endif
-                                        <div class="card-body">
-                                            <h5 class="card-title mb-0">{{ $event->name }}</h5>
-                                            <p class="mb-3 fs-1">
-                                                <small>
-                                                    {{ $event->role }} - {{ $event->major }}
-                                                </small>
-                                            </p>
-                                            <p class="card-text">
-                                                Selamat Ulang Tahun ke
-                                                {{ \Carbon\Carbon::parse($event->birthdate)->age }}
-                                            </p>
+                            @if (date('Y-m', strtotime($event->birthdate)) == date('Y-m'))
+                                <div class="card-deck mr-1 my-3">
+                                    <div class="card">
+                                        <a href="/celebrate/{{ $event->id }}"
+                                            class="text-decoration-none text-dark text-center">
+                                            @if ($event->avatar)
+                                                <img src="{{ asset('storage/' . $event->avatar) }}" class="card-img-top"
+                                                    alt="{{ $event->name }}">
+                                            @else
+                                                <img src="{{ asset('img/unknown.png') }}" class="card-img-top"
+                                                    alt="{{ $event->name }}">
+                                            @endif
+                                            <div class="card-body">
+                                                <h5 class="card-title mb-0">{{ $event->name }}</h5>
+                                                <p class="mb-3 fs-1">
+                                                    <small>
+                                                        {{ $event->role }} - {{ $event->major }}
+                                                    </small>
+                                                </p>
+                                                <p class="card-text">
+                                                    Selamat Ulang Tahun ke
+                                                    {{ \Carbon\Carbon::parse($event->birthdate)->age }}
+                                                </p>
+                                            </div>
+                                        </a>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 3 mins ago</small>
                                         </div>
-                                    </a>
-                                    <div class="card-footer">
-                                        <small class="text-muted">Last updated 3 mins ago</small>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>

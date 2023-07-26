@@ -76,7 +76,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td style="width:10%" class="align-middle">
                                     @if ($user->avatar)
-                                        <img src="{{ asset('storage') . '/' . $client->avatar }}" alt="dosen-avatar"
+                                        <img src="{{ asset('storage') . '/' . $user->avatar }}" alt="dosen-avatar"
                                             class="d-block rounded img-preview" height="100" width="100"
                                             id="uploadedAvatar" />
                                     @else

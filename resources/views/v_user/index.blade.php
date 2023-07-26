@@ -53,9 +53,9 @@
                     <thead>
                         <tr>
                             <th>No.</th>
+                            <th>Foto</th>
                             <th>Nomor Induk</th>
                             <th>Nama</th>
-                            <th>Email</th>
                             <th>Role</th>
                             <th>Action</th>
                         </tr>
@@ -63,9 +63,9 @@
                     <tfoot>
                         <tr>
                             <th>No.</th>
+                            <th>Foto</th>
                             <th>Nomor Induk</th>
                             <th>Nama</th>
-                            <th>Email</th>
                             <th>Role</th>
                             <th>Action</th>
                         </tr>
@@ -74,9 +74,19 @@
                         @forelse ($users as $user)
                             <tr class="text-center">
                                 <td>{{ $loop->iteration }}</td>
+                                <td style="width:10%" class="align-middle">
+                                    @if ($client->logo)
+                                        <img src="{{ asset('storage') . '/' . $client->logo }}" alt="dosen-avatar"
+                                            class="d-block rounded img-preview" height="100" width="100"
+                                            id="uploadedAvatar" />
+                                    @else
+                                        <img src="{{ asset('img') }}/unknown.png" alt="user-avatar"
+                                            class="d-block rounded img-preview" height="100" width="100"
+                                            id="uploadedAvatar" />
+                                    @endif
+                                </td>
                                 <td>{{ $user->no_induk }}</td>
                                 <td class="text-wrap">{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
                                 <td>{{ $user->role }}</td>
                                 <td>
                                     <div class="d-flex justify-content-around">

@@ -144,7 +144,7 @@
                     <hr>
                     <div class="row row-cols-1 row-cols-md-4 row-cols-md-4 mb-5 justify-content-center">
                         @foreach ($events as $event)
-                            @if ($event->role == 'admin')
+                            @if ($event->role == 'admin' || $event->birthdate != date('Y-m-d') || $event->no_induk != '10107039')
                                 @continue
                             @endif
                             <div class="card-deck mr-1 my-3">

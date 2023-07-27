@@ -169,6 +169,7 @@ class PortalController extends Controller
         unset($validatedData['newpassword']);
 
         $validatedData['isRegistered'] = 1;
+        $validatedData['isMicrosoftAccount'] = 1;
 
         User::where('id', $user->id)->update($validatedData);
 

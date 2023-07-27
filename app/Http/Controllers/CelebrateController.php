@@ -138,7 +138,7 @@ class CelebrateController extends Controller
     {
         $user = User::find($id);
         $celebrates = Celebrate::where('receiver_id', $id)->orderBy('updated_at', 'DESC')->get();
-        $tema = TemaPortal::where('user_id', 1)->get()->first();
+        $tema = TemaPortal::get()->first();
         $agendas = Agenda::all();
 
         return view('v_celebrate.showall', [

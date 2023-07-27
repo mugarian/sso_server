@@ -114,6 +114,7 @@ class UserController extends Controller
     {
         $rules = [
             'role' => 'nullable',
+            'birthdate' => 'required',
             'status' => 'nullable',
             'address' => 'required',
             'major' => 'required',

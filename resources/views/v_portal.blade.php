@@ -144,7 +144,7 @@
                     <hr>
                     <div class="row row-cols-1 row-cols-md-4 row-cols-md-4 mb-5 justify-content-center">
                         @foreach ($events as $event)
-                            @if (date('Y-m', strtotime($event->birthdate)) == date('Y-m'))
+                            @if (date('m-d', strtotime($event->birthdate)) == date('m-d'))
                                 <div class="card-deck mr-1 my-3">
                                     <div class="card">
                                         <a href="/celebrate/{{ $event->id }}"

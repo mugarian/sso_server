@@ -40,10 +40,12 @@
                             <span>{{ $user->role }} - {{ $user->major }}</span>
                             <p>Selamat Ulang Tahun ke
                                 {{ \Carbon\Carbon::parse($user->birthdate)->age }}</p>
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#createCelebrate">
-                                Ucapkan Selamat
-                            </button>
+                            @if ($user->id != auth()->user()->id)
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#createCelebrate">
+                                    Ucapkan Selamat
+                                </button>
+                            @endif
                         </div>
                     </div>
                 </div>

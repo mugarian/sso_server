@@ -288,7 +288,10 @@
                                         <img src="{{ asset('storage/' . $berita->cover) }}" class="card-img-top"
                                             alt="{{ $berita->title }}">
                                         <div class="card-body">
-                                            <h5 class="card-title text-dark">{{ $berita->title }}
+                                            <h5 class="card-title text-dark font-weight-bold">
+                                                <b>
+                                                    {{ $berita->title }}
+                                                </b>
                                             </h5>
                                             <p class="card-text text-dark">{!! Str::of($berita->description)->words(10, '...') !!}</p>
                                         </div>
@@ -315,7 +318,10 @@
                                         <img src="{{ $news->urlToImage ?? asset('img/news.jpg') }}" class="card-img-top"
                                             alt="{{ $news->title }}">
                                         <div class="card-body">
-                                            <h5 class="card-title text-dark">{{ $news->title }}
+                                            <h5 class="card-title text-dark font-weight-bold">
+                                                <b>
+                                                    {{ $news->title }}
+                                                </b>
                                             </h5>
                                             <p class="card-text text-dark">{!! Str::of($news->description)->words(10, '...') !!}</p>
                                         </div>

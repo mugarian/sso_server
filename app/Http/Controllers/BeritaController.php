@@ -108,7 +108,7 @@ class BeritaController extends Controller
     public function shownews($id)
     {
         $berita = Berita::find($id);
-        $tema = TemaPortal::where('user_id', 1)->get()->first();
+        $tema = TemaPortal::get()->first();
         $events = User::all();
         $agendas = Agenda::all();
 

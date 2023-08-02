@@ -59,6 +59,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'role' => 'required',
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:8000',
+            'attachment' => 'nullable|image|mimes:jpg,jpeg,png|max:8000',
             'no_induk' => 'required|unique:users,no_induk',
             'name' => 'required|max:255',
             'birthdate' => 'required',
@@ -77,6 +78,10 @@ class UserController extends Controller
 
         if ($request->file('avatar')) {
             $validatedData['avatar'] = $request->file('avatar')->store('user-images');
+        }
+
+        if ($request->file('attachment')) {
+            $validatedData['attachment'] = $request->file('attachment')->store('user-attachment');
         }
 
         $validatedData['password'] = Hash::make($validatedData['password']);

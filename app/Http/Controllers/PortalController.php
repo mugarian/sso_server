@@ -138,7 +138,8 @@ class PortalController extends Controller
             'status' => 'nullable',
             'address' => 'required',
             'name' => 'required|max:255',
-            'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:8000'
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:8000',
+            'attachment' => 'nullable|image|mimes:jpg,jpeg,png|max:8000'
         ];
 
         if ($request->no_induk != $user->no_induk) {
@@ -174,6 +175,15 @@ class PortalController extends Controller
             $validatedData['avatar'] = $request->file('avatar')->store('user-images');
         } else {
             $validatedData['avatar'] = $request->oldImage;
+        }
+
+        if ($request->file('attachment')) {
+            if ($request->oldAttachment) {
+                Storage::delete($request->oldAttachment);
+            }
+            $validatedData['attachment'] = $request->file('attachment')->store('user-attachment');
+        } else {
+            $validatedData['attachment'] = $request->oldAttachment;
         }
 
         unset($validatedData['newpassword']);

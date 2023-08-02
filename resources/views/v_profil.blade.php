@@ -54,6 +54,28 @@
                         @enderror
                     </div>
                     <div class="mb-2">
+                        <label for="avatar">Foto Kartu Mahasiswa/Pegawai:</label>
+                        <input type="hidden" name="oldAttachment" value="{{ $user->attachment }}">
+                        <input type="hidden" name="isRegistered" value="{{ $user->isRegistered }}">
+                        <input type="hidden" name="profil" value="1">
+                        @if ($user->attachment)
+                            <img src="{{ asset('/storage/' . $user->attachment) }}" alt="user-attachment"
+                                class="d-block rounded attachment-preview" height="100" width="100" id="attachment" />
+                        @else
+                            <img src="{{ asset('img') }}/unknown.png" alt="user-attachment"
+                                class="d-block rounded attachment-preview" height="100" width="100" id="attachment" />
+                        @endif
+                        <br>
+                        <input type="file" accept="image/png, image/jpeg"
+                            class="form-control-file attachment @error('attachment') is-invalid @enderror" id="attachment"
+                            onchange="previewAttachment()" name="attachment">
+                        @error('attachment')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-2">
                         <label for="no_induk" class="col-form-label">Nomor Induk:</label>
                         <input type="number" class="form-control @error('no_induk') is-invalid @enderror" id="no_induk"
                             name="no_induk" value="{{ old('no_induk', $user->no_induk) }}" required
@@ -76,8 +98,8 @@
                     </div>
                     <div class="mb-2">
                         <label for="birthdate" class="col-form-label">Tanggal Lahir:</label>
-                        <input type="date" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate"
-                            name="birthdate" value="{{ old('birthdate', $user->birthdate) }}" required>
+                        <input type="date" class="form-control @error('birthdate') is-invalid @enderror"
+                            id="birthdate" name="birthdate" value="{{ old('birthdate', $user->birthdate) }}" required>
                         @error('birthdate')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -87,7 +109,8 @@
                     <div class="mb-2">
                         <label for="no_hp" class="col-form-label">Nomor Handphone:</label>
                         <input type="text" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp"
-                            name="no_hp" value="{{ old('no_hp', $user->no_hp) }}" required placeholder="Nomor Handphone">
+                            name="no_hp" value="{{ old('no_hp', $user->no_hp) }}" required
+                            placeholder="Nomor Handphone">
                         @error('no_hp')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -175,6 +198,20 @@
         function previewImage() {
             const image = document.querySelector('.avatar');
             const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+
+        function previewAttachment() {
+            const image = document.querySelector('.attachment');
+            const imgPreview = document.querySelector('.attachment-preview');
 
             imgPreview.style.display = 'block';
 

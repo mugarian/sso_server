@@ -36,6 +36,20 @@
                         @enderror
                     </div>
                     <div class="mb-2">
+                        <label for="attachment">Foto Kartu Mahasiswa/Pegawai:</label>
+                        <img src="{{ asset('img') }}/unknown.png" alt="user-attachment"
+                            class="d-block rounded attachment-preview" height="100" width="100" id="attachment" />
+                        <br>
+                        <input type="file" accept="image/png, image/jpeg"
+                            class="form-control-file attachment @error('attachment') is-invalid @enderror" id="attachment"
+                            onchange="previewAttachment()" name="attachment">
+                        @error('attachment')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-2">
                         <label for="exampleFormControlSelect1">Role User:</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="role">
                             <option value="">Pilih Role User</option>
@@ -53,8 +67,8 @@
                     <div class="mb-2">
                         <label for="exampleFormControlSelect1">Terverifikasi:</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="isVerified">
-                            <option value="1" @selected(old('isVerified', $user->isVerified) == 1)>Ya</option>
-                            <option value="0" @selected(old('isVerified', $user->isVerified) == 0)>Tidak</option>
+                            <option value="1" @selected(old('isVerified') == 1)>Ya</option>
+                            <option value="0" @selected(old('isVerified') == 0)>Tidak</option>
                         </select>
                         @error('isVerified')
                             <div class="invalid-feedback">
@@ -65,8 +79,8 @@
                     <div class="mb-2">
                         <label for="exampleFormControlSelect1">Telah Registrasi:</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="isRegistered">
-                            <option value="1" @selected(old('isRegistered', $user->isRegistered) == 1)>Ya</option>
-                            <option value="0" @selected(old('isRegistered', $user->isRegistered) == 0)>Tidak</option>
+                            <option value="1" @selected(old('isRegistered') == 1)>Ya</option>
+                            <option value="0" @selected(old('isRegistered') == 0)>Tidak</option>
                         </select>
                         @error('isRegistered')
                             <div class="invalid-feedback">
@@ -75,10 +89,10 @@
                         @enderror
                     </div>
                     <div class="mb-2">
-                        <label for="exampleFormControlSelect1">Akun Mivrosoft:</label>
+                        <label for="exampleFormControlSelect1">Akun Microsoft:</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="isMicrosoftAccount">
-                            <option value="1" @selected(old('isMicrosoftAccount', $user->isMicrosoftAccount) == 1)>Ya</option>
-                            <option value="0" @selected(old('isMicrosoftAccount', $user->isMicrosoftAccount) == 0)>Tidak</option>
+                            <option value="1" @selected(old('isMicrosoftAccount') == 1)>Ya</option>
+                            <option value="0" @selected(old('isMicrosoftAccount') == 0)>Tidak</option>
                         </select>
                         @error('isMicrosoftAccount')
                             <div class="invalid-feedback">
@@ -89,7 +103,8 @@
                     <div class="mb-2">
                         <label for="no_induk" class="col-form-label">Nomor Induk:</label>
                         <input type="number" class="form-control @error('no_induk') is-invalid @enderror" id="no_induk"
-                            name="no_induk" value="{{ old('no_induk') }}" required placeholder="Nomor Induk" min="1">
+                            name="no_induk" value="{{ old('no_induk') }}" required placeholder="Nomor Induk"
+                            min="1">
                         @error('no_induk')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -108,8 +123,8 @@
                     </div>
                     <div class="mb-2">
                         <label for="birthdate" class="col-form-label">Tanggal Lahir:</label>
-                        <input type="date" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate"
-                            name="birthdate" value="{{ old('birthdate') }}" required>
+                        <input type="date" class="form-control @error('birthdate') is-invalid @enderror"
+                            id="birthdate" name="birthdate" value="{{ old('birthdate') }}" required>
                         @error('birthdate')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -205,6 +220,20 @@
         function previewImage() {
             const image = document.querySelector('.avatar');
             const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+
+        function previewAttachment() {
+            const image = document.querySelector('.attachment');
+            const imgPreview = document.querySelector('.attachment-preview');
 
             imgPreview.style.display = 'block';
 

@@ -30,6 +30,14 @@
                         alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
                 </div>
                 <div class="mb-2">
+                    <label for="attachment">Foto Kartu Mahasiswa/Pegawai:</label>
+                    <img @if ($user->attachment) src="{{ asset('/storage/' . $user->attachment) }}"
+                    @else
+                                    src="{{ asset('img') }}/unknown.png" @endif
+                        alt="user-attachment" class="d-block rounded" height="100" width="100"
+                        id="uploadedAttachment" />
+                </div>
+                <div class="mb-2">
                     <label for="role">Role User:</label>
                     <b>{{ $user->role }}</b>
                 </div>

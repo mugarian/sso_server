@@ -8,6 +8,7 @@ use App\Models\TemaPortal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -88,17 +89,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if ($data['avatar']) {
+        if ($data['avatar'] ?? null) {
             $data['avatar'] = $data['avatar']->store('user-images');
         }
 
-        if ($data['attachment']) {
+        if ($data['attachment'] ?? null) {
             $data['attachment'] = $data['attachment']->store('user-attachment');
         }
 
-        return User::create([
-            'avatar' => $data['avatar'],
-            'attachment' => $data['attachment'],
+        return $user = User::create([
+            'avatar' => $data['avatar'] ?? null,
+            'attachment' => $data['attachment'] ?? null,
             'role' => $data['role'],
             'major' => $data['major'],
             'no_induk' => $data['no_induk'],
@@ -114,5 +115,7 @@ class RegisterController extends Controller
             'isRegistered' => 1,
             'isMicrosoftAccount' => 0,
         ]);
+
+        event(new Registered($user));
     }
 }

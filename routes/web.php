@@ -1,20 +1,28 @@
 <?php
 
+use App\Models\User;
+use App\Models\Agenda;
 use App\Models\Celebrate;
 use App\Models\TemaPortal;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Dcblogdev\MsGraph\Facades\MsGraph;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\KlienController;
+use Illuminate\Auth\Events\PasswordReset;
 use App\Http\Controllers\AgendaController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\CelebrateController;
 use App\Http\Controllers\TemaPortalController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\TemaDashboardController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,14 +41,28 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/register/dosen', [RegisterController::class, 'registerDosen']);
-Route::get('/register/mahasiswa', [RegisterController::class, 'registerMahasiswa']);
-Route::get('/register/staff', [RegisterController::class, 'registerStaff']);
-// Route::get('/register/tamu', [RegisterController::class, 'registerTamu']);
+// ! EMAIL VERIFICATION
+Route::get('/email/verify', function () {
+    $tema = TemaPortal::get()->first();
+    $agendas = Agenda::all();
+    return view('auth.verify-email', [
+        'tema' => $tema,
+        'agendas' => $agendas
+    ]);
+})->middleware('auth')->name('verification.notice');
 
-// Route::get('/admin', function () {
-//     return redirect('/login')->with('admin', 'Login Untuk Admin');
-// });
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/portal');
+})->middleware(['auth'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+// ! END EMAIL VERIFICATION
 
 Route::get('/faq', [PortalController::class, 'faq'])->name('faq');
 
@@ -48,7 +70,7 @@ Route::get('connect', [PortalController::class, 'connect'])->name('connect');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth', 'profil'])->group(function () {
+Route::middleware(['auth', 'profil', 'verified'])->group(function () {
     Route::get('check', function () {
         return MsGraph::get('me/photo');
     });

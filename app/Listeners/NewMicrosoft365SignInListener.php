@@ -30,6 +30,7 @@ class NewMicrosoft365SignInListener
                 'isMicrosoftAccount' => 1,
                 'username' => $emailArray[0],
                 'password' => $emailArray[0],
+                'email_verified_at' => now()
             ]);
         }
 

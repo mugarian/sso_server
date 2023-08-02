@@ -21,9 +21,13 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('template') }}/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link href="{{ asset('template') }}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    {{-- <link href="{{ asset('template') }}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"> --}}
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script>
+
+    <link
+        href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/datatables.min.css"
+        rel="stylesheet" />
 
     <style>
         .bg_sidebar {
@@ -221,12 +225,56 @@
     {{-- <script src="{{ asset('template') }}/js/demo/chart-area-demo.js"></script>
     <script src="{{ asset('template') }}/js/demo/chart-pie-demo.js"></script> --}}
 
-    <!-- Page level plugins -->
+    {{-- <!-- Page level plugins -->
     <script src="{{ asset('template') }}/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="{{ asset('template') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{ asset('template') }}/js/demo/datatables-demo.js"></script>
+    <script src="{{ asset('template') }}/js/demo/datatables-demo.js"></script> --}}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script
+        src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/datatables.min.js">
+    </script>
+
+    <script>
+        let table = new DataTable('#dataTable', {
+            // options
+            dom: 'Bflrtip',
+            buttons: [{
+                    extend: 'print',
+                    className: 'btn btn-primary'
+                },
+                {
+                    extend: 'excel',
+                    className: 'btn btn-primary'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    className: 'btn btn-primary'
+                },
+
+            ]
+        });
+        let table2 = new DataTable('#dataTable2', {
+            // options
+            dom: 'Bflrtip',
+            buttons: [{
+                    extend: 'print',
+                    className: 'btn btn-primary'
+                },
+                {
+                    extend: 'excel',
+                    className: 'btn btn-primary'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    className: 'btn btn-primary'
+                },
+            ]
+        });
+    </script>
 
 </body>
 

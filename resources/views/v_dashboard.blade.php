@@ -124,7 +124,103 @@
     </div>
 
     <!-- Content Row -->
+    {{-- HISTORY LOG --}}
+    <div class="row">
+        <div class="card shadow mb-4 col-lg-12">
+            <div class="card-header py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Log History</h6>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>User</th>
+                                <th>IP</th>
+                                <th>Platform</th>
+                                <th>Detail</th>
+                                <th>Login at</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>No.</th>
+                                <th>User</th>
+                                <th>IP</th>
+                                <th>Platform</th>
+                                <th>Detail</th>
+                                <th>Login at</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach ($logs as $log)
+                                <tr class="text-center">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $log->user->name }}</td>
+                                    <td class="text-wrap">{{ $log->ip }}</td>
+                                    <td>{{ $log->platform }}</td>
+                                    <td>{{ $log->user_agent }}</td>
+                                    <td>{{ $log->login_at }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    {{-- ACTIVITY LOG --}}
+    <div class="row">
+        <div class="card shadow mb-4 col-lg-12">
+            <div class="card-header py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Log Aktivitas</h6>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>User</th>
+                                <th>Modul</th>
+                                <th>Instruksi</th>
+                                <th>Riwayat</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>No.</th>
+                                <th>User</th>
+                                <th>Modul</th>
+                                <th>Instruksi</th>
+                                <th>Riwayat</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach ($activities as $activity)
+                                <tr class="text-center">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $activity->name }}</td>
+                                    <td class="text-wrap">{{ $activity->log_name }}</td>
+                                    <td>{{ $activity->description }}</td>
+                                    <td>{{ $activity->created_at }}</td>
+                                    <td class="text-wrap text-left">{{ $activity->properties }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- <div class="row">
 
         <!-- Area Chart -->
@@ -224,8 +320,8 @@
                     </div>
                     <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
                     <div class="progress mb-4">
-                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0"
+                            aria-valuemax="100"></div>
                     </div>
                     <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span>
                     </h4>

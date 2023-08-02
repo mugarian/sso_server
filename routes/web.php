@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Celebrate;
+use App\Models\TemaPortal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Dcblogdev\MsGraph\Facades\MsGraph;
@@ -8,6 +9,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KlienController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\CelebrateController;
@@ -31,12 +33,16 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/admin', function () {
-    return redirect('/login')->with('admin', 'Login Untuk Admin');
-});
+Route::get('/register/dosen', [RegisterController::class, 'registerDosen']);
+Route::get('/register/mahasiswa', [RegisterController::class, 'registerMahasiswa']);
+Route::get('/register/staff', [RegisterController::class, 'registerStaff']);
+// Route::get('/register/tamu', [RegisterController::class, 'registerTamu']);
+
+// Route::get('/admin', function () {
+//     return redirect('/login')->with('admin', 'Login Untuk Admin');
+// });
 
 Route::get('/faq', [PortalController::class, 'faq'])->name('faq');
-
 
 Route::get('connect', [PortalController::class, 'connect'])->name('connect');
 

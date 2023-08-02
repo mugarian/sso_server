@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Celebrate::class);
     }
+
+    public function loghistory()
+    {
+        return $this->hasMany(LogHistory::class);
+    }
 }

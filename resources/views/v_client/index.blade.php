@@ -50,7 +50,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @forelse ($clients as $client)
+                        @foreach ($clients as $client)
                             <tr>
                                 <td class="align-middle">{{ $loop->iteration }}</td>
                                 <td style="width:10%" class="align-middle">
@@ -105,15 +105,7 @@
                                     </div>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="100%">
-                                    <h4 class="text-gray-500 text-center my-5">
-                                        Data Client Tidak ada
-                                    </h4>
-                                </td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>

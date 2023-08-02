@@ -78,6 +78,43 @@
                 </div>
             </div>
             {{-- </form> --}}
+            <hr>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>User</th>
+                            <th>Modul</th>
+                            <th>Instruksi</th>
+                            <th>Riwayat</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>No.</th>
+                            <th>User</th>
+                            <th>Modul</th>
+                            <th>Instruksi</th>
+                            <th>Riwayat</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach ($activities as $activity)
+                            <tr class="text-center">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $activity->name }}</td>
+                                <td class="text-wrap">{{ $activity->log_name }}</td>
+                                <td>{{ $activity->description }}</td>
+                                <td>{{ $activity->created_at }}</td>
+                                <td class="text-wrap text-left">{{ $activity->properties }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

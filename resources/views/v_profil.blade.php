@@ -1,25 +1,25 @@
 @extends('layouts.portal')
 @section('container')
     <!-- Page Heading -->
-    <h1 class="h3 text-gray-800 text-center my-4">Profil</h1>
-    @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show mx-3" role="alert">
-            {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-    @if (session()->has('fail'))
-        <div class="alert alert-danger alert-dismissible fade show mx-3" role="alert">
-            {{ session('fail') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-    <div class="card shadow mb-4">
+    <div class="card shadow my-4">
         <div class="card-header py-3">
+            <h1 class="h3 text-gray-800 text-center my-4">Profil</h1>
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show mx-3" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            @if (session()->has('fail'))
+                <div class="alert alert-danger alert-dismissible fade show mx-3" role="alert">
+                    {{ session('fail') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Form Kelola Profil</h6>
                 <a href="/portal" class="m-0 text-primary">&lt; Kembali</a>

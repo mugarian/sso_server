@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'id' => $admin,
             'name' => 'admin',
             'birthdate' => '2000-02-07',
-            'no_induk' => '0',
+            'no_induk' => '1',
             'no_hp' => '0812',
             'username' => 'admin',
             'address' => 'subang',

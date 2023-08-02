@@ -3,14 +3,22 @@
 namespace App\Models;
 
 use App\Traits\Uuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Celebrate extends Model
 {
-    use HasFactory, Uuids;
+    use HasFactory, Uuids, LogsActivity;
 
     protected $guarded = ['id'];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logUnguarded()->useLogName('celebrate')->logOnlyDirty();
+        // Chain fluent methods for configuration options
+    }
 
     public function receiver()
     {

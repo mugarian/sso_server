@@ -127,7 +127,7 @@ class AgendaController extends Controller
             'textColor' => 'required',
         ]);
 
-        Agenda::where('id', $agenda->id)->update($validatedData);
+        Agenda::find($agenda->id)->update($validatedData);
 
         return redirect('/dashboard/agenda')->with('success', 'Ubah Data Agenda Berhasil');
     }

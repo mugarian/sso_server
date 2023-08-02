@@ -18,10 +18,12 @@ return new class extends Migration
             $table->string('no_induk')->unique();
             $table->string('no_hp')->unique()->nullable();
             $table->text('address')->nullable();
-            $table->enum('major', ['mi', 'ai', 'tppm', 'kesehatan', 'kepegawaian', 'guest'])->default('guest');
-            $table->enum('role', ['admin', 'dosen', 'mahasiswa', 'staff', 'guest'])->default('guest');
+            $table->enum('major', ['mi', 'ai', 'tppm', 'kesehatan', 'kepegawaian', 'tamu'])->default('tamu');
+            $table->enum('role', ['admin', 'dosen', 'mahasiswa', 'staff', 'tamu'])->default('tamu');
             $table->string('avatar')->nullable();
+            $table->string('attachment')->nullable();
             $table->boolean('status')->default(1);
+            $table->boolean('isVerified')->default(0);
             $table->boolean('isRegistered')->default(0);
             $table->boolean('isMicrosoftAccount')->default(0);
             $table->string('username')->unique();

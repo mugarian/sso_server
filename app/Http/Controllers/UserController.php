@@ -6,9 +6,11 @@ use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Models\TemaDashboard;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Validation\Rules\Password;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class UserController extends Controller
@@ -65,7 +67,7 @@ class UserController extends Controller
             'major' => 'required',
             'username' => 'required|unique:users,username',
             'email' => 'required|email:dns|unique:users,email',
-            'password' => 'required|confirmed',
+            'password' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(), 'confirmed'],
             'password_confirmation' => 'required',
             'status' => 'required',
         ]);
@@ -86,10 +88,17 @@ class UserController extends Controller
     {
         $tema = $this->tema();
 
+        $activities = DB::table('activity_log')
+            ->join('users', 'activity_log.causer_id', '=', 'users.id')
+            ->select('activity_log.*', 'users.name')
+            ->where('causer_id', $user->id)
+            ->orderBy('created_at', 'desc')->get();
+
         return view('v_user.show', [
             'title' => 'Lihat Data User',
             'user' => $user,
-            'tema' => $tema
+            'tema' => $tema,
+            'activities' => $activities
         ]);
     }
 
@@ -140,7 +149,7 @@ class UserController extends Controller
 
         if ($request->password) {
             $rules['password'] = 'required';
-            $rules['newpassword'] = 'required|confirmed';
+            $rules['newpassword'] = ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(), 'confirmed'];
             if (!Hash::check($request->password, $user->password)) {
                 return back()->with('password', 'The password field is incorrect');
             }

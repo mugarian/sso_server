@@ -2,14 +2,16 @@
 
 namespace Laravel\Passport;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Passport\Database\Factories\ClientFactory;
 
 class Client extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     /**
      * The database table used by the model.
@@ -67,6 +69,12 @@ class Client extends Model
                 $model->{$model->getKeyName()} = $model->{$model->getKeyName()} ?: (string) Str::orderedUuid();
             }
         });
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logUnguarded()->useLogName('client')->logOnlyDirty();
+        // Chain fluent methods for configuration options
     }
 
     /**

@@ -6,14 +6,17 @@ use App\Models\News;
 use App\Models\User;
 use App\Models\Agenda;
 use App\Models\Berita;
+use App\Models\LogHistory;
 use App\Models\TemaPortal;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
 use App\Models\TemaDashboard;
 use jcobhams\NewsApi\NewsApi;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Dcblogdev\MsGraph\Facades\MsGraph;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Password;
 
 class PortalController extends Controller
 {
@@ -54,7 +57,6 @@ class PortalController extends Controller
             ['Singapura', 'sg'],
         ];
         $categories = $newsapi->getCategories();
-
         return view('v_portal', [
             'title' => 'SSO Portal',
             'all_news' => $all_news->articles,
@@ -80,13 +82,21 @@ class PortalController extends Controller
         $tema = TemaDashboard::where('user_id', auth()->user()->id)->get()->first();
         if (!$tema) $tema = TemaDashboard::get()->first();
 
+        $logs = LogHistory::whereBetween('login_at', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])->orderBy('login_at', 'desc')->get();
+        $activities = DB::table('activity_log')
+            ->join('users', 'activity_log.causer_id', '=', 'users.id')
+            ->select('activity_log.*', 'users.name')
+            ->orderBy('created_at', 'desc')->get();
+
         return view('v_dashboard', [
             'title' => 'Dashboard',
             'client' => $client,
             'dosen' => $dosen,
             'mahasiswa' => $mahasiswa,
             'staff' => $staff,
-            'tema' => $tema
+            'tema' => $tema,
+            'logs' => $logs,
+            'activities' => $activities
         ]);
     }
 
@@ -149,7 +159,7 @@ class PortalController extends Controller
 
         if ($request->password) {
             $rules['password'] = 'required';
-            $rules['newpassword'] = 'required|confirmed';
+            $rules['newpassword'] = ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(), 'confirmed'];
             if (!Hash::check($request->password, $user->password)) {
                 return back()->with('password', 'The password field is incorrect');
             }
@@ -169,9 +179,8 @@ class PortalController extends Controller
         unset($validatedData['newpassword']);
 
         $validatedData['isRegistered'] = 1;
-        $validatedData['isMicrosoftAccount'] = 1;
 
-        User::where('id', $user->id)->update($validatedData);
+        User::find($user->id)->update($validatedData);
 
         if ($request->isRegistered) {
             return redirect('/profile')->with('success', 'Data Profil berhasil diubah');

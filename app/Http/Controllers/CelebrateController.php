@@ -117,7 +117,7 @@ class CelebrateController extends Controller
             'reply' => 'nullable',
         ]);
 
-        Celebrate::where('id', $celebrate)->update($validatedData);
+        Celebrate::find($celebrate)->update($validatedData);
         if ($request->celebrate) {
             return redirect('/celebrate/' . $request->receiver_id)->with('success', 'Ucapan Perayaan Berhasil Dikirim');
         } else {

@@ -30,7 +30,7 @@
                     @endforelse
                 </ol>
                 <div class="carousel-inner">
-                    @forelse ($users as $user)
+                    @foreach ($users as $user)
                         <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}">
                             <img src="{{ asset('img/event.jpg') }}" class="d-block w-100"
                                 alt="Perayaan Ulang Tahun {{ $user->name }}">
@@ -51,16 +51,7 @@
                                     Selamat</a>
                             </div>
                         </div>
-                    @empty
-                        <div class="carousel-item active">
-                            <img src="{{ asset('img/event.jpg') }}" class="d-block w-100" alt="Tidak Ada Perayaan">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Tidak Ada Perayaan</h5>
-                                <span>-</span>
-                                <p>-</p>
-                            </div>
-                        </div>
-                    @endforelse
+                    @endforeach
                 </div>
                 <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions"
                     data-slide="prev">

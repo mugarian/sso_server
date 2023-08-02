@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Models\User;
+use App\Models\LogHistory;
 use Dcblogdev\MsGraph\MsGraph;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +27,7 @@ class NewMicrosoft365SignInListener
                 'role' => 'tamu',
                 'status' => 1,
                 'isRegistered' => 0,
-                'isVerified' => 1,
+                'isVerified' => 0,
                 'isMicrosoftAccount' => 1,
                 'username' => $emailArray[0],
                 'password' => $emailArray[0],
@@ -43,5 +44,13 @@ class NewMicrosoft365SignInListener
         );
 
         Auth::login($user);
+
+        LogHistory::create([
+            'user_id' => $user->id,
+            'ip' => request()->getClientIp(),
+            'platform' => trim(request()->header('sec-ch-ua-platform'), '"'),
+            'user_agent' => request()->header('user-agent'),
+            'login_at' => now()
+        ]);
     }
 }

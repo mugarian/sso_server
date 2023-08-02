@@ -70,6 +70,9 @@ class UserController extends Controller
             'password' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(), 'confirmed'],
             'password_confirmation' => 'required',
             'status' => 'required',
+            'isVerified' => 'required',
+            'isRegistered' => 'required',
+            'isMicrosoftAccount' => 'required',
         ]);
 
         if ($request->file('avatar')) {
@@ -125,6 +128,9 @@ class UserController extends Controller
             'role' => 'nullable',
             'birthdate' => 'required',
             'status' => 'nullable',
+            'isVerified' => 'nullable',
+            'isRegistered' => 'nullable',
+            'isMicrosoftAccount' => 'nullable',
             'address' => 'required',
             'major' => 'required',
             'name' => 'required|max:255',

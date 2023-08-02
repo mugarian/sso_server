@@ -51,6 +51,42 @@
                         @enderror
                     </div>
                     <div class="mb-2">
+                        <label for="exampleFormControlSelect1">Terverifikasi:</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="isVerified">
+                            <option value="1" @selected(old('isVerified', $user->isVerified) == 1)>Ya</option>
+                            <option value="0" @selected(old('isVerified', $user->isVerified) == 0)>Tidak</option>
+                        </select>
+                        @error('isVerified')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-2">
+                        <label for="exampleFormControlSelect1">Telah Registrasi:</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="isRegistered">
+                            <option value="1" @selected(old('isRegistered', $user->isRegistered) == 1)>Ya</option>
+                            <option value="0" @selected(old('isRegistered', $user->isRegistered) == 0)>Tidak</option>
+                        </select>
+                        @error('isRegistered')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-2">
+                        <label for="exampleFormControlSelect1">Akun Mivrosoft:</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="isMicrosoftAccount">
+                            <option value="1" @selected(old('isMicrosoftAccount', $user->isMicrosoftAccount) == 1)>Ya</option>
+                            <option value="0" @selected(old('isMicrosoftAccount', $user->isMicrosoftAccount) == 0)>Tidak</option>
+                        </select>
+                        @error('isMicrosoftAccount')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-2">
                         <label for="no_induk" class="col-form-label">Nomor Induk:</label>
                         <input type="number" class="form-control @error('no_induk') is-invalid @enderror" id="no_induk"
                             name="no_induk" value="{{ old('no_induk') }}" required placeholder="Nomor Induk" min="1">
@@ -92,8 +128,8 @@
                     </div>
                     <div class="mb-2">
                         <label for="address" class="col-form-label">Alamat:</label>
-                        <textarea id="address" class="form-control @error('address') is-invalid @enderror" placeholder="alamat" name="address"
-                            required>{{ old('address') }}</textarea>
+                        <textarea id="address" class="form-control @error('address') is-invalid @enderror" placeholder="alamat"
+                            name="address" required>{{ old('address') }}</textarea>
                         @error('address')
                             <div class="invalid-feedback">
                                 {{ $message }}

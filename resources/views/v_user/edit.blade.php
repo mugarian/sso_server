@@ -56,6 +56,42 @@
                         @enderror
                     </div>
                     <div class="mb-2">
+                        <label for="exampleFormControlSelect1">Terverifikasi:</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="isVerified">
+                            <option value="1" @selected(old('isVerified', $user->isVerified) == 1)>Ya</option>
+                            <option value="0" @selected(old('isVerified', $user->isVerified) == 0)>Tidak</option>
+                        </select>
+                        @error('isVerified')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-2">
+                        <label for="exampleFormControlSelect1">Telah Registrasi:</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="isRegistered">
+                            <option value="1" @selected(old('isRegistered', $user->isRegistered) == 1)>Ya</option>
+                            <option value="0" @selected(old('isRegistered', $user->isRegistered) == 0)>Tidak</option>
+                        </select>
+                        @error('isRegistered')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-2">
+                        <label for="exampleFormControlSelect1">Akun Mivrosoft:</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="isMicrosoftAccount">
+                            <option value="1" @selected(old('isMicrosoftAccount', $user->isMicrosoftAccount) == 1)>Ya</option>
+                            <option value="0" @selected(old('isMicrosoftAccount', $user->isMicrosoftAccount) == 0)>Tidak</option>
+                        </select>
+                        @error('isMicrosoftAccount')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-2">
                         <label for="role">Role User:</label>
                         <select class="form-control" id="role" name="role">
                             <option value="">Pilih Role</option>
@@ -92,8 +128,8 @@
                     </div>
                     <div class="mb-2">
                         <label for="birthdate" class="col-form-label">Tanggal Lahir:</label>
-                        <input type="date" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate"
-                            name="birthdate" value="{{ old('birthdate', $user->birthdate) }}" required>
+                        <input type="date" class="form-control @error('birthdate') is-invalid @enderror"
+                            id="birthdate" name="birthdate" value="{{ old('birthdate', $user->birthdate) }}" required>
                         @error('birthdate')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -103,7 +139,8 @@
                     <div class="mb-2">
                         <label for="no_hp" class="col-form-label">Nomor Handphone:</label>
                         <input type="text" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp"
-                            name="no_hp" value="{{ old('no_hp', $user->no_hp) }}" required placeholder="Nomor Handphone">
+                            name="no_hp" value="{{ old('no_hp', $user->no_hp) }}" required
+                            placeholder="Nomor Handphone">
                         @error('no_hp')
                             <div class="invalid-feedback">
                                 {{ $message }}

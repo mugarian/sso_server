@@ -76,6 +76,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:8000',
             'attachment' => 'nullable|image|mimes:jpg,jpeg,png|max:8000',
+            'g-recaptcha-response' => 'required|captcha'
         ]);
     }
 

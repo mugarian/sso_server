@@ -7,7 +7,7 @@
                 <div class="col-lg-6 col-sm-12 {{ $tema->cover_main ? 'cover_main' : 'cover_default' }}">
                 </div>
                 <div class="col-lg-6 col-sm-12 layout_main">
-                    <div class="p-5">
+                    <div class="px-5 py-4">
                         <div class="text-center">
                             <h1 class="h4 color_main mb-4">
                                 Selamat Datang di Portal <br> Politeknik Negeri Subang!
@@ -39,6 +39,19 @@
                                     <input type="password" class="form-control form-control-user" id="password"
                                         name="password" placeholder="Password" required />
                                 </div>
+                                <div class="my-2">
+                                    <center>
+                                        <small>
+                                            {!! NoCaptcha::display() !!}
+                                        </small>
+                                    </center>
+                                    {!! NoCaptcha::renderJs() !!}
+                                    @error('g-recaptcha-response')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                                 <div class="mt-2">
                                     <button class="btn btn-primary btn-user btn-block">
                                         Login
@@ -58,7 +71,7 @@
             </div>
         </div>
     </div>
-    <div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card o-hidden border-0 shadow-lg my-3">
         <div class="card-body p-3">
             <!-- Nested Row within Card Body -->
             <h1 class="h4 color_main text-center">

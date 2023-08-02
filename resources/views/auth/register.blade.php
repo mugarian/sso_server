@@ -305,6 +305,15 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="mt-4">
+                                {!! NoCaptcha::display() !!}
+                                {!! NoCaptcha::renderJs() !!}
+                                @error('g-recaptcha-response')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                         </div>
                         {{-- </div> --}}
                     </div>

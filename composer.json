@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "anhskohbo/no-captcha": "^3.5",
         "dcblogdev/laravel-microsoft-graph": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
         "jcobhams/newsapi": "^1.0",

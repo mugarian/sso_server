@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('beritas', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->references('id')->on('users');
+            $table->foreignUuid('user_id')->references('id')->on('users')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('cover')->nullable();
             $table->string('title');
             $table->text('description');

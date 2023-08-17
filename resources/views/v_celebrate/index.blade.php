@@ -11,63 +11,53 @@
         </div>
     @endif
 
-    <div class="card shadow mb-4">
+    <div class="card shadow">
         <div class="card-header py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Perayaan Ulang Tahun</h6>
             </div>
         </div>
         <div class="card-body">
-            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    @forelse ($users as $user)
-                        <li data-target="#carouselExampleCaptions" data-slide-to="{{ $loop->index }}"
-                            class="{{ $loop->index == 0 ? 'active' : '' }}">
-                        </li>
-                    @empty
-                        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active">
-                        </li>
-                    @endforelse
-                </ol>
-                <div class="carousel-inner">
-                    @foreach ($users as $user)
-                        <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}">
-                            <img src="{{ asset('img/event.jpg') }}" class="d-block w-100"
-                                alt="Perayaan Ulang Tahun {{ $user->name }}">
-                            <div class="carousel-caption d-none d-md-block">
+            <div class="row row-cols-1 row-cols-md-4 row-cols-md-4 justify-content-center">
+                @forelse ($users as $user)
+                    <div class="card-deck mr-1 my-3">
+                        <div class="card">
+                            <a href="/celebrate/{{ $user->id }}" class="text-decoration-none text-dark text-center">
                                 @if ($user->avatar)
-                                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="photo profile"
-                                        class="w-25 mb-5 rounded-circle">
+                                    <img src="{{ asset('storage/' . $user->avatar) }}" class="card-img-top"
+                                        alt="{{ $user->name }}">
                                 @else
-                                    <img src="{{ asset('img/unknown.png') }}" alt="photo profile"
-                                        class="w-25 mb-5 rounded-circle">
+                                    <img src="{{ asset('img/unknown.png') }}" class="card-img-top"
+                                        alt="{{ $user->name }}">
                                 @endif
-                                <h5>{{ $user->name }}</h5>
-                                <span>{{ $user->role }} - {{ $user->major }}</span>
-                                <p>Selamat Ulang Tahun ke
-                                    {{ \Carbon\Carbon::parse($user->birthdate)->age }}</p>
-                                <a href="{{ route('celebrate.create', ['user' => $user->id]) }}"
-                                    class="btn btn-primary mb-5">Ucapakan
-                                    Selamat</a>
+                                <div class="card-body">
+                                    <h5 class="card-title mb-0">{{ $user->name }}</h5>
+                                    <p class="mb-3 fs-1">
+                                        <small>
+                                            {{ $user->role }} - {{ $user->major }}
+                                        </small>
+                                    </p>
+                                    <p class="card-text">
+                                        Selamat Ulang Tahun ke
+                                        {{ \Carbon\Carbon::parse($user->birthdate)->age }}
+                                    </p>
+                                </div>
+                            </a>
+                            <div class="card-footer">
+                                <small class="text-muted">Last updated 3 mins ago</small>
                             </div>
                         </div>
-                    @endforeach
-                </div>
-                <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions"
-                    data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions"
-                    data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </button>
+                    </div>
+                @empty
+                    <center>
+                        <h3 class="text-muted">Tidak Ada Perayaan</h3>
+                    </center>
+                @endforelse
             </div>
         </div>
     </div>
 
-    <hr class="my-5">
+    <hr class="my-4">
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -99,7 +89,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @forelse ($celebrates as $celebrate)
+                        @foreach ($celebrates as $celebrate)
                             <tr class="text-center">
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="text-wrap text-left">{{ $celebrate->receiver->name }}</td>
@@ -145,15 +135,7 @@
                                     </div>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="100%">
-                                    <h4 class="text-gray-500 text-center my-5">
-                                        Data Ucapan Perayaan Tidak ada
-                                    </h4>
-                                </td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -135,35 +135,7 @@
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
     </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                themeSystem: 'bootstrap',
-                events: [
-                    @foreach ($agendas as $agenda)
-                        {
-                            title: '{{ $agenda->title }}',
-                            url: 'agenda/{{ $agenda->id }}',
-                            backgroundColor: '{{ $agenda->backgroundColor }}',
-                            borderColor: '{{ $agenda->borderColor }}',
-                            textColor: '{{ $agenda->textColor }}',
-                            start: '{{ $agenda->start }}',
-                            end: '{{ $agenda->end }}',
-                        },
-                    @endforeach
-                ],
-                eventTimeFormat: {
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    meridiem: false
-                }
-            });
-            calendar.render();
-        });
-    </script>
+
 
 </body>
 

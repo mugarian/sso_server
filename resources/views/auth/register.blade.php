@@ -189,8 +189,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">+62</span>
                                         </div>
-                                        <input type="number" class="form-control @error('no_induk') is-invalid @enderror"
-                                            placeholder="823456789" value="{{ old('no_induk') }}" required id="no_hp"
+                                        <input type="number" class="form-control @error('no_hp') is-invalid @enderror"
+                                            placeholder="823456789" value="{{ old('no_hp') }}" required id="no_hp"
                                             name="no_hp">
                                     </div>
                                     @error('no_hp')

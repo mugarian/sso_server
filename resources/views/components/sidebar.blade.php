@@ -62,6 +62,11 @@
             <i class="fas fa-fw fa-newspaper" style="color: {{ $tema->color_sidebar }}"></i>
             <span class="color_sidebar">Berita</span></a>
     </li>
+    <li class="nav-item {{ Request::is('dashboard/evaluasi*') ? 'bg_sidebar_active' : '' }}">
+        <a class="nav-link color_sidebar" href="/dashboard/evaluasi">
+            <i class="fas fa-fw fa-scroll" style="color: {{ $tema->color_sidebar }}"></i>
+            <span class="color_sidebar">Evaluasi Kinerja</span></a>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -78,12 +83,12 @@
                 <i class="fas fa-fw fa-brush" style="color: {{ $tema->color_sidebar }}"></i>
                 <span class="color_sidebar">Tema Portal</span></a>
         </li>
+        <li class="nav-item {{ Request::is('dashboard/temadashboard*') ? 'bg_sidebar_active' : '' }}">
+            <a class="nav-link color_sidebar" href="/dashboard/temadashboard">
+                <i class="fas fa-fw fa-brush" style="color: {{ $tema->color_sidebar }}"></i>
+                <span class="color_sidebar">Tema Dashboard</span></a>
+        </li>
     @endif
-    <li class="nav-item {{ Request::is('dashboard/temadashboard*') ? 'bg_sidebar_active' : '' }}">
-        <a class="nav-link color_sidebar" href="/dashboard/temadashboard">
-            <i class="fas fa-fw fa-brush" style="color: {{ $tema->color_sidebar }}"></i>
-            <span class="color_sidebar">Tema Dashboard</span></a>
-    </li>
 
     <hr class="sidebar-divider">
 

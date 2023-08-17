@@ -155,39 +155,41 @@
                         <h5 class="color_main text-center">Perayaan</h5>
                         <hr>
                         <div class="row row-cols-1 row-cols-md-4 row-cols-md-4 mb-5 justify-content-center">
-                            @foreach ($events as $event)
-                                @if (date('m-d', strtotime($event->birthdate)) == date('m-d'))
-                                    <div class="card-deck mr-1 my-3">
-                                        <div class="card">
-                                            <a href="/celebrate/{{ $event->id }}"
-                                                class="text-decoration-none text-dark text-center">
-                                                @if ($event->avatar)
-                                                    <img src="{{ asset('storage/' . $event->avatar) }}"
-                                                        class="card-img-top" alt="{{ $event->name }}">
-                                                @else
-                                                    <img src="{{ asset('img/unknown.png') }}" class="card-img-top"
-                                                        alt="{{ $event->name }}">
-                                                @endif
-                                                <div class="card-body">
-                                                    <h5 class="card-title mb-0">{{ $event->name }}</h5>
-                                                    <p class="mb-3 fs-1">
-                                                        <small>
-                                                            {{ $event->role }} - {{ $event->major }}
-                                                        </small>
-                                                    </p>
-                                                    <p class="card-text">
-                                                        Selamat Ulang Tahun ke
-                                                        {{ \Carbon\Carbon::parse($event->birthdate)->age }}
-                                                    </p>
-                                                </div>
-                                            </a>
-                                            <div class="card-footer">
-                                                <small class="text-muted">Last updated 3 mins ago</small>
+                            @forelse ($events as $event)
+                                <div class="card-deck mr-1 my-3">
+                                    <div class="card">
+                                        <a href="show/celebrate/{{ $event->id }}"
+                                            class="text-decoration-none text-dark text-center">
+                                            @if ($event->avatar)
+                                                <img src="{{ asset('storage/' . $event->avatar) }}"
+                                                    class="card-img-top" alt="{{ $event->name }}">
+                                            @else
+                                                <img src="{{ asset('img/unknown.png') }}" class="card-img-top"
+                                                    alt="{{ $event->name }}">
+                                            @endif
+                                            <div class="card-body">
+                                                <h5 class="card-title mb-0">{{ $event->name }}</h5>
+                                                <p class="mb-3 fs-1">
+                                                    <small>
+                                                        {{ $event->role }} - {{ $event->major }}
+                                                    </small>
+                                                </p>
+                                                <p class="card-text">
+                                                    Selamat Ulang Tahun ke
+                                                    {{ \Carbon\Carbon::parse($event->birthdate)->age }}
+                                                </p>
                                             </div>
+                                        </a>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 3 mins ago</small>
                                         </div>
                                     </div>
-                                @endif
-                            @endforeach
+                                </div>
+                            @empty
+                                <center>
+                                    <h5 class="text-muted">Tidak Ada Perayaan</h5>
+                                </center>
+                            @endforelse
                         </div>
                     </div>
 
@@ -299,7 +301,7 @@
                         <div class="row row-cols-1 row-cols-md-3 row-cols-md-2 mb-5 justify-content-start">
                             @forelse ($beritas as $berita)
                                 <div class="card-deck mr-1 my-3">
-                                    <a href="/news/{{ $berita->id }}" class="text-dark text-decoration-none">
+                                    <a href="show/news/{{ $berita->id }}" class="text-dark text-decoration-none">
                                         <div class="card">
                                             <img src="{{ asset('storage/' . $berita->cover) }}" class="card-img-top"
                                                 alt="{{ $berita->title }}">
@@ -357,4 +359,34 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            themeSystem: 'bootstrap',
+            events: [
+                @foreach ($agendas as $agenda)
+                    {
+                        title: '{{ $agenda->title }}',
+                        url: 'show/agenda/{{ $agenda->id }}',
+                        backgroundColor: '{{ $agenda->backgroundColor }}',
+                        borderColor: '{{ $agenda->borderColor }}',
+                        textColor: '{{ $agenda->textColor }}',
+                        start: '{{ $agenda->start }}',
+                        end: '{{ $agenda->end }}',
+                    },
+                @endforeach
+            ],
+            eventTimeFormat: {
+                hour: 'numeric',
+                minute: '2-digit',
+                second: '2-digit',
+                meridiem: false
+            }
+        });
+        calendar.render();
+    });
+</script>
+
 @endsection

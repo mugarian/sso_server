@@ -109,15 +109,11 @@ class BeritaController extends Controller
     {
         $berita = Berita::find($id);
         $tema = TemaPortal::get()->first();
-        $events = User::all();
-        $agendas = Agenda::all();
 
         return view('v_news.shownews', [
             'title' => 'Lihat Data Berita',
             'berita' => $berita,
             'tema' => $tema,
-            'events' => $events,
-            'agendas' => $agendas,
         ]);
     }
 

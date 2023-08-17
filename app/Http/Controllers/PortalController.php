@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\News;
 use App\Models\User;
 use App\Models\Agenda;
@@ -36,7 +37,9 @@ class PortalController extends Controller
 
         $all_news = $newsapi->getTopHeadlines($query, $sources, $country, $category, $page_size, $page);
         $tema = TemaPortal::get()->first();
-        $events = User::all();
+        // $events = User::all();
+        $events = User::where('id', '<>', '1')->whereRaw("DATE_FORMAT(birthdate,'%m-%d') = DATE_FORMAT(NOW(),'%m-%d')")->get();
+
         $agendas = Agenda::all();
         $clients = Client::all();
         $beritas = Berita::all();

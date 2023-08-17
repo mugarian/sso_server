@@ -80,7 +80,7 @@
                         @enderror
                     </div>
                     <div class="mb-2">
-                        <label for="exampleFormControlSelect1">Akun Mivrosoft:</label>
+                        <label for="exampleFormControlSelect1">Akun Microsoft:</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="isMicrosoftAccount">
                             <option value="1" @selected(old('isMicrosoftAccount', $user->isMicrosoftAccount) == 1)>Ya</option>
                             <option value="0" @selected(old('isMicrosoftAccount', $user->isMicrosoftAccount) == 0)>Tidak</option>

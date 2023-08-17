@@ -72,8 +72,8 @@
                         </div>
                         <hr />
                         <div class="text-center">
-                            <a class="small" href="/register">Registrasi</a> -
-                            <a class="small" href="/password/reset">Lupa Password</a>
+                            <a class="small" href="/register">Registrasi</a>
+                            {{-- <a class="small" href="/password/reset">Lupa Password</a> --}}
                         </div>
                     </div>
                 </div>

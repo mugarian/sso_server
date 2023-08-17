@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('celebrates', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('receiver_id')->references('id')->on('users');
-            $table->foreignUuid('sender_id')->references('id')->on('users');
+            $table->foreignUuid('receiver_id')->references('id')->on('users')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('sender_id')->references('id')->on('users')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->text('message');
             $table->text('reply')->nullable();
             $table->timestamps();

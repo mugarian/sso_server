@@ -26,7 +26,7 @@ class CelebrateController extends Controller
     {
         $tema = $this->tema();
         // $users = DB::table('users')->where('id', '!=', '1')->where('tgl_lahir', '=', date('Y-m-d'))->orderBy('tgl_lahir', 'asc')->get();
-        $users = User::where('id', '!=', '1')->orderBy('birthdate', 'asc')->get();
+        $users = User::where('id', '<>', '1')->whereRaw("DATE_FORMAT(birthdate,'%m-%d') = DATE_FORMAT(NOW(),'%m-%d')")->get();
 
         $user = User::find(auth()->user()->id);
 
@@ -134,19 +134,17 @@ class CelebrateController extends Controller
         return redirect('/dashboard/celebrate')->with('success', 'Ucapan Perayaan Berhasil Dihapus');
     }
 
-    public function showAll($id)
+    public function showcelebrate($id)
     {
         $user = User::find($id);
         $celebrates = Celebrate::where('receiver_id', $id)->orderBy('updated_at', 'DESC')->get();
         $tema = TemaPortal::get()->first();
-        $agendas = Agenda::all();
 
         return view('v_celebrate.showall', [
             'title' => 'Ucapan Perayaan Untuk ' . $user->name,
             'celebrates' => $celebrates,
             'user' => $user,
             'tema' => $tema,
-            'agendas' => $agendas,
         ]);
     }
 }

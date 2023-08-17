@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
         'profil' => \App\Http\Middleware\Profil::class,
+        'isAdmin' => \App\Http\Middleware\isAdmin::class,
     ];
 }

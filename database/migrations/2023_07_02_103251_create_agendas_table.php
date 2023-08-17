@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('agendas', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->references('id')->on('users');
+            $table->foreignUuid('user_id')->references('id')->on('users')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('start');
             $table->timestamp('end')->nullable();
             $table->string('title');

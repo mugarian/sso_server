@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="d-flex justify-content-between">
+            {{-- <div class="d-flex justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Import Data</h6>
                 <a href="{{ asset('format/format-agenda.xlsx') }}" download="FormatImportAgenda"
                     class="btn btn-sm btn-outline-primary">Download Format Import File</a>
@@ -49,7 +49,7 @@
                     <button type="submit" class="btn btn-primary">Import</button>
                 </fieldset>
             </form>
-            <hr>
+            <hr> --}}
             <div id='calendar'></div>
         </div>
     </div>

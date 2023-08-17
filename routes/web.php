@@ -73,9 +73,7 @@ Route::get('connect', [PortalController::class, 'connect'])->name('connect');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'profil'])->group(function () {
-    Route::get('check', function () {
-        return MsGraph::get('me/photo');
-    });
+
     Route::get('/app', [PortalController::class, 'app'])->name('app');
     Route::get('/ms/logout', [PortalController::class, 'logout'])->name('mslogout');
 

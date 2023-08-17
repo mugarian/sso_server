@@ -68,7 +68,7 @@ class RegisterController extends Controller
             'role' => ['required'],
             'major' => ['required'],
             'no_induk' => ['required', 'unique:users'],
-            'no_hp' => ['required', 'unique:users'],
+            'no_hp' => ['required'],
             'birthdate' => ['required'],
             'address' => ['required'],
             'name' => ['required', 'string', 'max:255'],

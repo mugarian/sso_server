@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->date('birthdate');
             $table->string('no_induk')->unique();
-            $table->string('no_hp')->unique()->nullable();
+            $table->string('no_hp')->nullable();
             $table->text('address')->nullable();
             $table->enum('major', ['mi', 'ai', 'tppm', 'kesehatan', 'kepegawaian', 'tamu'])->default('tamu');
             $table->enum('role', ['admin', 'dosen', 'mahasiswa', 'staff', 'tamu'])->default('tamu');

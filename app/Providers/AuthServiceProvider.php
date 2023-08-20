@@ -6,8 +6,6 @@ namespace App\Providers;
 
 use Laravel\Passport\Passport;
 use App\Models\Passport as ModelsPassport;
-use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -41,14 +39,5 @@ class AuthServiceProvider extends ServiceProvider
         ]);
 
         Passport::useClientModel(ModelsPassport::class);
-
-        VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
-            return (new MailMessage)
-                ->greeting('Halo!')
-                ->subject('Verifikasi Email Address SSO Polsub')
-                ->line('Klik Tombol di bawah ini untuk verifikasi email address yang dimaksud.')
-                ->action('Verify Email Address', $url)
-                ->line('Jika terdapat masalah terkait verifikasi email akun. Silahkan hubungi bagian UPT TIK');
-        });
     }
 }

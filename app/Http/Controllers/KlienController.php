@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Laravel\Passport\Client;
 use App\Models\TemaDashboard;
+use Laravel\Passport\Client;
 use Illuminate\Support\Facades\Storage;
 
 class KlienController extends Controller

@@ -50,7 +50,7 @@
                     <div class="mb-3">
                         <label for="message" class="form-label">Pesan:</label>
                         <textarea class="form-control @error('message') is-invalid @enderror" id="message" rows="3" name="message"
-                            {{ auth()->user()->id == $celebrate->sender->id ? '' : 'readonly' }}>{{ old('message', $celebrate->message) }}</textarea>
+                            {{-- {{ auth()->user()->id == $celebrate->sender->id ? '' : 'readonly' }} --}}>{{ old('message', $celebrate->message) }}</textarea>
                         @error('message')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -60,7 +60,7 @@
                     <div class="mb-3">
                         <label for="reply" class="form-label">Balasan:</label>
                         <textarea class="form-control @error('reply') is-invalid @enderror" id="reply" rows="3" name="reply"
-                            {{ auth()->user()->id == $celebrate->receiver->id ? '' : 'readonly' }}> {{ old('reply', $celebrate->reply) }}</textarea>
+                            {{-- {{ auth()->user()->id == $celebrate->receiver->id ? '' : 'readonly' }} --}}> {{ old('reply', $celebrate->reply) }}</textarea>
                         @error('reply')
                             <div class="invalid-feedback">
                                 {{ $message }}

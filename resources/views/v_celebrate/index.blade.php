@@ -103,35 +103,23 @@
                                                 <i class="fas fa-info"></i>
                                             </small>
                                         </a>
-                                        @if ($celebrate->receiver_id == auth()->user()->id && !$celebrate->reply)
-                                            <a class="btn btn-primary btn-sm px-1"
-                                                href="{{ route('celebrate.edit', ['celebrate' => $celebrate->id]) }}">
+                                        <a class="btn btn-warning btn-sm px-1"
+                                            href="{{ route('celebrate.edit', ['celebrate' => $celebrate->id]) }}">
+                                            <small>
+                                                <i class="fas fa-pen"></i>
+                                            </small>
+                                        </a>
+                                        <form action="{{ route('celebrate.destroy', ['celebrate' => $celebrate->id]) }}"
+                                            method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm px-1"
+                                                onclick="if (confirm('Hapus Data')) return true; return false">
                                                 <small>
-                                                    <i class="fas fa-paper-plane"></i>
+                                                    <i class="fas fa-trash"></i>
                                                 </small>
-                                            </a>
-                                        @else
-                                            <a class="btn btn-warning btn-sm px-1"
-                                                href="{{ route('celebrate.edit', ['celebrate' => $celebrate->id]) }}">
-                                                <small>
-                                                    <i class="fas fa-pen"></i>
-                                                </small>
-                                            </a>
-                                        @endif
-                                        @if ($celebrate->role != 'admin')
-                                            <form
-                                                action="{{ route('celebrate.destroy', ['celebrate' => $celebrate->id]) }}"
-                                                method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm px-1"
-                                                    onclick="if (confirm('Hapus Data')) return true; return false">
-                                                    <small>
-                                                        <i class="fas fa-trash"></i>
-                                                    </small>
-                                                </button>
-                                            </form>
-                                        @endif
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

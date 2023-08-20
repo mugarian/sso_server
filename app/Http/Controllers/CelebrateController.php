@@ -30,11 +30,7 @@ class CelebrateController extends Controller
 
         $user = User::find(auth()->user()->id);
 
-        if ($user->role == 'admin') {
-            $celebrates = Celebrate::all();
-        } else {
-            $celebrates = Celebrate::where('sender_id', $user->id)->orWhere('receiver_id', $user->id)->get();
-        }
+        $celebrates = Celebrate::all();
 
         return view('v_celebrate.index', [
             'title' => 'Kelola Data Ucapan Pereayaan',
@@ -72,7 +68,7 @@ class CelebrateController extends Controller
         Celebrate::create($validatedData);
 
         if ($request->celebrate) {
-            return redirect('/celebrate/' . $request->receiver_id)->with('success', 'Ucapan Perayaan Berhasil Dikirim');
+            return redirect('/show/celebrate/' . $request->receiver_id)->with('success', 'Ucapan Perayaan Berhasil Dikirim');
         } else {
             return redirect('/dashboard/celebrate')->with('success', 'Ucapan Perayaan Berhasil Dikirim');
         }
@@ -119,7 +115,7 @@ class CelebrateController extends Controller
 
         Celebrate::find($celebrate)->update($validatedData);
         if ($request->celebrate) {
-            return redirect('/celebrate/' . $request->receiver_id)->with('success', 'Ucapan Perayaan Berhasil Dikirim');
+            return redirect('/show/celebrate/' . $request->receiver_id)->with('success', 'Ucapan Perayaan Berhasil Dikirim');
         } else {
             return redirect('/dashboard/celebrate')->with('success', 'Ucapan Perayaan Berhasil Dikirim');
         }

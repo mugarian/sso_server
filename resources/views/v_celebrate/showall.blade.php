@@ -142,7 +142,7 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                @forelse ($celebrates as $celebrate)
+                                @foreach ($celebrates as $celebrate)
                                     <tr class="text-center">
                                         <td>{{ $loop->iteration }}</td>
                                         <td class="text-wrap text-left">{{ $celebrate->message }}</td>
@@ -153,12 +153,12 @@
                                         </td>
                                         <td>
                                             <div class="d-flex justify-content-around">
-                                                <a class="btn btn-success"
+                                                {{-- <a class="btn btn-success"
                                                     href="{{ route('celebrate.show', ['celebrate' => $celebrate->id]) }}">
                                                     <small>
                                                         <i class="fas fa-info"></i>
                                                     </small>
-                                                </a>
+                                                </a> --}}
                                                 @if ($celebrate->receiver_id == auth()->user()->id && !$celebrate->reply)
                                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                                         data-target="#editCelebrate{{ $celebrate->id }}">
@@ -277,15 +277,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="100%">
-                                            <h4 class="text-gray-500 text-center my-5">
-                                                Data Ucapan Perayaan Tidak ada
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

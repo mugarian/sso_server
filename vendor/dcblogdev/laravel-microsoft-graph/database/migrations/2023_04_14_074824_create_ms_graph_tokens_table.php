@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('ms_graph_tokens', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignUuid('user_id')->references('id')->on('users');
+            $table->foreignUuid('user_id')->references('id')->on('users')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('email')->nullable();
             $table->text('access_token');
             $table->text('refresh_token')->nullable();
